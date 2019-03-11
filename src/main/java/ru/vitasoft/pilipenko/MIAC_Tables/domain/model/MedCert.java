@@ -47,10 +47,10 @@ public class MedCert {
 
     @ManyToOne
     @JoinColumn(name = "RecipientId")
-    private Recipient recipientId;              //dict
+    private Recipient recipientId;              //FK
 
     @ManyToOne
     @JoinColumn(name = "PrevCertId")
-    private MedCert prevCertId;                 //dict //!ссылка на самого себя
+    private MedCert prevCertId;                 //FK //!ссылка на самого себя
 
 }

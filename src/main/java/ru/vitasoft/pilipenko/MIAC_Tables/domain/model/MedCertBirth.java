@@ -28,7 +28,7 @@ public class MedCertBirth {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)  //??? нужен ли каскад здесь?
+    @ManyToOne
     @JoinColumn(name = "MedCertId")
     private MedCert medCertId;                       //mod
 
@@ -69,10 +69,10 @@ public class MedCertBirth {
     private Integer firstAppearanceToDoctor;
     private Integer childNumber;
 
-    @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime childBirthTimeDate;        //Дата и время
 
-    @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDateTime motherBirthDate;           //Дата
 
     @JsonProperty("motherBirthDateNone")

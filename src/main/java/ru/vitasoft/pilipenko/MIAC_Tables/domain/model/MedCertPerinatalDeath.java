@@ -36,13 +36,13 @@ public class MedCertPerinatalDeath {
     @JoinColumn(name = "DeathResultedWhen")
     private DeathResultedWhen deathResultedWhen;      //enum
 
-    @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime deadFetus;                //date time?
 
-    @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime childWasAlive;            //date time?
 
-    @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime childDied;                //date time?
 
     private Integer civilRegistryOfficeWorker;      //
