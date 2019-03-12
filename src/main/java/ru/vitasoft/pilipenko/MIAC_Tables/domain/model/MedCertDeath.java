@@ -29,7 +29,7 @@ public class MedCertDeath {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;//
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "MedCertId")
     private MedCert medCertId;                      //FK
 

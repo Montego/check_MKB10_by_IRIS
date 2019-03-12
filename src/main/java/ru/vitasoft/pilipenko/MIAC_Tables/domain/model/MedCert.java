@@ -45,11 +45,11 @@ public class MedCert {
     private String filledOutMedCert;            //boolean?
     private String headOfMedOrg;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "RecipientId")
     private Recipient recipientId;              //FK
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "PrevCertId")
     private MedCert prevCertId;                 //FK //!ссылка на самого себя
 

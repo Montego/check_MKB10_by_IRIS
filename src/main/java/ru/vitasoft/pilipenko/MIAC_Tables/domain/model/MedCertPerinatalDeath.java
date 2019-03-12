@@ -28,7 +28,7 @@ public class MedCertPerinatalDeath {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;//
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "MedCertId")
     private MedCert medCertId;              //FK
 
@@ -79,7 +79,7 @@ public class MedCertPerinatalDeath {
 
     @ManyToOne
     @JoinColumn(name = "ActRecordId")
-    private ActRecord actRecordId;                  //FK
+    private ActRecords actRecordId;                  //FK
 
     @ManyToOne
     @JoinColumn(name = "PersonTookBirthId")
@@ -112,7 +112,7 @@ public class MedCertPerinatalDeath {
 
     @ManyToOne
     @JoinColumn(name = "MotherOccupationId")
-    private Occupation motherOccupationId;             //FK
+    private Occupation motherOccupationId;          //FK
 
     private Integer motherBirthYear;                //
     private Boolean motherBirthDateNone = false;    //

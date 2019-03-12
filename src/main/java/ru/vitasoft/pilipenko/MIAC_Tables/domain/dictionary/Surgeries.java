@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Table(name = "D_Mkb10")
-public class Surgery {
+public class Surgeries {
 
     @Id
     private Integer surgeryId;

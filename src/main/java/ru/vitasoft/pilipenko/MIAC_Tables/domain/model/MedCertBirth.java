@@ -28,7 +28,7 @@ public class MedCertBirth {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "MedCertId")
     private MedCert medCertId;                       //mod
 
