@@ -19,35 +19,35 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "MedCert")
+@Table(name = "MedCertRepository")
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class MedCert {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer medCertId;
+    private Integer medCertId = -1;
 
-    private Integer certSeries;
-    private Integer certNumber;
+    private Integer certSeries = -1;
+    private Integer certNumber = -1;
 
     @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDateTime certIssueDate;
+    private LocalDateTime certIssueDate = LocalDateTime.parse("0001-01-01T00:00:00");
 
-    private String certIssueByEmpl;
-    private String certStatus;
+    private String certIssueByEmpl = "";
+    private String certStatus = "";
 
     @ManyToOne
     @JoinColumn(name = "certType")
-    private CertType certType;                   //enum
+    private CertType certType = new CertType();                   //enum
 
     private Boolean isDuplicate = false;
-    private String privatePractitionerLicenceNumber;
-    private String privatePractitionerAddress;
-    private String filledOutMedCert;            //boolean?
-    private String headOfMedOrg;
+    private String privatePractitionerLicenceNumber = "";
+    private String privatePractitionerAddress = "";
+    private String filledOutMedCert = "";                          //boolean?
+    private String headOfMedOrg = "";
 
     @OneToOne
     @JoinColumn(name = "RecipientId")
-    private Recipient recipientId;              //FK
+    private Recipient recipientId = new Recipient();              //FK
 
     @OneToOne
     @JoinColumn(name = "PrevCertId")

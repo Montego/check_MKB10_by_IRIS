@@ -3,8 +3,10 @@ package ru.vitasoft.pilipenko.MIAC_Tables.controller;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.MedCert;
 import ru.vitasoft.pilipenko.MIAC_Tables.model.TestUsers;
 import ru.vitasoft.pilipenko.MIAC_Tables.repository.TestRepository;
+import ru.vitasoft.pilipenko.MIAC_Tables.repository.model.MedCertRepository;
 
 @RestController
 @RequestMapping("/rest")
@@ -19,6 +21,9 @@ public class TestController {
     @Autowired
     TestRepository testRepository;
 
+    @Autowired
+    MedCertRepository medCertRepository;
+
     @GetMapping("/GetAll")
     public Iterable<TestUsers> testGetAll(){
         return testRepository.findAll();
@@ -26,7 +31,13 @@ public class TestController {
 
     @GetMapping("/{id}/GetOne")
     public TestUsers testGetByID(@PathVariable("id") Integer Id){
-        return testRepository.findByUserId(Id);
+
+        TestUsers interResult = testRepository.findByUserId(Id);
+
+        if(interResult == null) {
+            interResult = new TestUsers();
+        }
+        return interResult;
     }
 
     @PutMapping("/UpdateOne")                               //В теле запроса приходит правильно отформатированный JSON
@@ -123,4 +134,14 @@ public class TestController {
 
         return response;
     }
+
+    @GetMapping("/GetCleanMedCert")
+    public MedCert testGetByID(){
+
+        MedCert interResult = interResult = new MedCert();
+        return interResult;
+
+    }
+
+
 }

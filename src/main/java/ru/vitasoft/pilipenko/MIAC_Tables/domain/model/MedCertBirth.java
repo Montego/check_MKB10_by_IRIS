@@ -89,7 +89,7 @@ public class MedCertBirth {
     private EduType motherEduTypeId;                //dict
 
     @ManyToOne
-    @JoinColumn(name = "MotherEduTypeId")
+    @JoinColumn(name = "motherOccupationId")
     private Occupation motherOccupationId;          //dict
 
     @ManyToOne

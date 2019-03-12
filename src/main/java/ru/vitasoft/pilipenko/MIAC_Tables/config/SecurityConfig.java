@@ -20,11 +20,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-        http.authorizeRequests().antMatchers("/**").hasAnyRole("ADMIN","USER").
-                and().formLogin();
+//        http.authorizeRequests().antMatchers("/**").hasAnyRole("ADMIN","USER").
+//                and().formLogin();
 
         http.csrf().disable();
-        //http.authorizeRequests().anyRequest().permitAll();
+        http.authorizeRequests().anyRequest().permitAll();
     }
 
     private static final String ENCODED_PASSWORD_A = "$2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2";
