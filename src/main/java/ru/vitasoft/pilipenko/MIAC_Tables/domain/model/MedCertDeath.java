@@ -27,27 +27,27 @@ public class MedCertDeath {
     @Id
     @Column(name = "medCertDeathId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;//
+    private Integer id = -1;//
 
     @OneToOne
     @JoinColumn(name = "MedCertId")
     private MedCert medCertId;                      //FK
 
-    private String bodyNumber;
+    private String bodyNumber = "";
 
-    private String lastName;
-    private String firstName;
-    private String patronymicName;
+    private String lastName = "";
+    private String firstName = "";
+    private String patronymicName = "";
 
     @ManyToOne
     @JoinColumn(name = "Sex")
     private Sex sex;                                //enum
 
     @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDateTime birthDate;
+    private LocalDateTime birthDate = LocalDateTime.parse("0001-01-01T00:00:00");
 
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
-    private LocalDateTime deathDate;
+    private LocalDateTime deathDate = LocalDateTime.parse("0001-01-01T00:00:00");
 
     @ManyToOne
     @JoinColumn(name = "DeathResultedFrom")
@@ -85,9 +85,33 @@ public class MedCertDeath {
     @JoinColumn(name = "MedOrgId")
     private MedOrg medOrgId;                       //FK
 
-    private Integer birthYear;
+    private Integer birthYear = -1;
 
-    private Boolean birthDateNone       = false;
-    private Boolean birthDateUnknown    = false;
+    private Boolean birthDateNone = false;
+    private Boolean birthDateUnknown = false;
 
+    //конструктор для информативного заполения JSON
+    public MedCertDeath(Boolean defaultValues) {
+        this.setId(-1);//
+        this.setMedCertId(new MedCert(true));                      //FK
+        this.setBodyNumber("");
+        this.setLastName("");
+        this.setFirstName("");
+        this.setPatronymicName("");
+        this.setSex(new Sex(true));                                //enum
+        this.setBirthDate(LocalDateTime.parse("0001-01-01T00:00:00"));
+        this.setDeathDate(LocalDateTime.parse("0001-01-01T00:00:00"));
+        this.setDeathResultedFrom(new DeathReasons(true));         //enum ???
+        this.setDeathOccuredIn(new DeathOccuredIn(true));          //enum
+        this.setDeathReasonsEstablishedBy(new DeathReasonsEstablishedBy(true));      //enum
+        this.setReasonsForDeathEstablishing(new ReasonsForDeathEstablishing(true));    //enum
+        this.setFamilyStatusId(new FamilyStatus(true));           //FK
+        this.setEduTypeId(new EduType(true));                     //FK
+        this.setMedicId(new Medics(true));                        //FK
+        this.setOccupationId(new Occupation(true));               //FK
+        this.setMedOrgId(new MedOrg(true));                       //FK
+        this.setBirthYear(-1);
+        this.setBirthDateNone(false);
+        this.setBirthDateUnknown(false);
+    }
 }

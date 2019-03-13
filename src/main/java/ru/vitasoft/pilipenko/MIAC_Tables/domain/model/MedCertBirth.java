@@ -76,7 +76,7 @@ public class MedCertBirth {
     private LocalDateTime motherBirthDate;           //Дата
 
     @JsonProperty("motherBirthDateNone")
-    private Boolean getMotherBirthDateNone(){return motherBirthDate == null;};
+    private Boolean getMotherBirthDateNone;
 
     private Integer motherBirthYear;
 
@@ -96,5 +96,35 @@ public class MedCertBirth {
     @JoinColumn(name = "BirthType")
     private BirthType birthType;                    //enum
 
+    //конструктор для информативного заполения JSON
+    public MedCertBirth(Boolean defaultValues) {
+        if (defaultValues) {
+            this.setId(-1);
+            this.setMedCertId(new MedCert(true));                       //mod
+            this.setLastName("");
+            this.setFirstName("");
+            this.setPatronymicName("");
+            this.setChildBirthOccured(new ChildBirthOccured(true));    //enum
+            this.setSex(new Sex(true));                                //enum
+            this.setWasBornFetus(new WasBornFetus(true));              //enum
+            this.setWeight(-1);
+            this.setLength(-1);
+            this.setPersonTookBirthId(new PersonTookBirth(true));      //dict
+            this.setMedOrgId(new MedOrg(true));                        //dict
+            this.setIssuedByMedicalAssistant(new IssuedByMedicalAssistant(true));       //enum
+            this.setMotherLastName("");
+            this.setMotherFirstName("");
+            this.setMotherPatronymicName("");
+            this.setFirstAppearanceToDoctor(-1);
+            this.setChildNumber(-1);
+            this.setChildBirthTimeDate(LocalDateTime.parse("0001-01-01T00:00:00")); //Дата и время
+            this.setMotherBirthDate(LocalDateTime.parse("0001-01-01T00:00:00"));    //Дата
+            this.setGetMotherBirthDateNone(false);
+            this.setMotherBirthYear(-1);
+            this.setMotherFamilyStatusId(new FamilyStatus(true));      //dict
+            this.setMotherEduTypeId(new EduType(true));                //dict
+            this.setMotherOccupationId(new Occupation(true));          //dict
+            this.setBirthType(new BirthType(true));                    //enum
+        }
+    }
 }
-

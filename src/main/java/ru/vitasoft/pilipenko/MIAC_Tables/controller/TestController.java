@@ -4,25 +4,40 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.MedCert;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.MedCertBirth;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.MedCertDeath;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.MedCertPerinatalDeath;
 import ru.vitasoft.pilipenko.MIAC_Tables.model.TestUsers;
 import ru.vitasoft.pilipenko.MIAC_Tables.repository.TestRepository;
+import ru.vitasoft.pilipenko.MIAC_Tables.repository.model.MedCertBirthRepository;
+import ru.vitasoft.pilipenko.MIAC_Tables.repository.model.MedCertDeathRepository;
+import ru.vitasoft.pilipenko.MIAC_Tables.repository.model.MedCertPerinatalDeathRepository;
 import ru.vitasoft.pilipenko.MIAC_Tables.repository.model.MedCertRepository;
 
 @RestController
 @RequestMapping("/rest")
 public class TestController {
 
-    @GetMapping("/")
-    public String getSome(){
-
-        return "Fuck OFF!";
-    }
-
     @Autowired
     TestRepository testRepository;
 
     @Autowired
     MedCertRepository medCertRepository;
+
+    @Autowired
+    MedCertBirthRepository medCertBirthRepository;
+
+    @Autowired
+    MedCertDeathRepository medCertDeathRepository;
+
+    @Autowired
+    MedCertPerinatalDeathRepository medCertPerinatalDeathRepository;
+
+    @GetMapping("/")
+    public String getSome(){
+
+        return "Fuck OFF!";
+    }
 
     @GetMapping("/GetAll")
     public Iterable<TestUsers> testGetAll(){
@@ -121,7 +136,7 @@ public class TestController {
                 System.out.printf(e.getMessage());
                 errors = true;
             }
-            if ((!errors) && testRepository.findByUserId(Id) == null) {
+            if ((!errors) && testRepository.findByUserId(Id) == null) { //метод deleteById ничего не возвращает, поэтому приходится делать второй запрос чтобы проверить удалился ли объект
                 messageTest = "Success: Запись " + Id.toString() + " успешно удалена.";
             }else{
                 messageTest = "Error: Ошибка при попытке удаления записи " + Id.toString();
@@ -135,11 +150,24 @@ public class TestController {
         return response;
     }
 
-    @GetMapping("/GetCleanMedCert")
-    public MedCert testGetByID(){
+    @GetMapping("/GetEmptyMedCertBirth")
+    public MedCertBirth getEmptyMedCertBirth(){
 
-        MedCert interResult = interResult = new MedCert();
-        return interResult;
+        return new MedCertBirth(true);
+
+    }
+
+    @GetMapping("/GetEmptyMedCertDeath")
+    public MedCertDeath getEmptyMedCertDeath(){
+
+        return new MedCertDeath(true);
+
+    }
+
+    @GetMapping("/GetEmptyMedCertPerinatalDeath")
+    public MedCertPerinatalDeath getEmptyMedCertPerinatalDeath(){
+
+        return new MedCertPerinatalDeath(true);
 
     }
 

@@ -1,6 +1,7 @@
 package ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name = "D_DeathReasonsDiag")
 public class DeathReasonsDiag {
     @Id

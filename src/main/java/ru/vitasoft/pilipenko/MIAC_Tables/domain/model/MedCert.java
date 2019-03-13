@@ -24,33 +24,52 @@ import java.time.LocalDateTime;
 public class MedCert {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer medCertId = -1;
+    private Integer medCertId;
 
-    private Integer certSeries = -1;
-    private Integer certNumber = -1;
+    private Integer certSeries;
+    private Integer certNumber;
 
     @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDateTime certIssueDate = LocalDateTime.parse("0001-01-01T00:00:00");
+    private LocalDateTime certIssueDate;
 
-    private String certIssueByEmpl = "";
-    private String certStatus = "";
+    private String certIssueByEmpl;
+    private String certStatus;
 
     @ManyToOne
     @JoinColumn(name = "certType")
-    private CertType certType = new CertType();                   //enum
+    private CertType certType;                  //enum
 
-    private Boolean isDuplicate = false;
-    private String privatePractitionerLicenceNumber = "";
-    private String privatePractitionerAddress = "";
-    private String filledOutMedCert = "";                          //boolean?
-    private String headOfMedOrg = "";
+    private Boolean isDuplicate;
+    private String privatePractitionerLicenceNumber;
+    private String privatePractitionerAddress;
+    private String filledOutMedCert;            //boolean?
+    private String headOfMedOrg;
 
     @OneToOne
     @JoinColumn(name = "RecipientId")
-    private Recipient recipientId = new Recipient();              //FK
+    private Recipient recipientId;              //FK
 
     @OneToOne
     @JoinColumn(name = "PrevCertId")
     private MedCert prevCertId;                 //FK //!ссылка на самого себя
 
+    //конструктор для информативного заполения JSON
+    public MedCert(Boolean defaultValues){
+        if (defaultValues){
+            this.setMedCertId(-1);
+            this.setCertSeries(-1);
+            this.setCertNumber(-1);
+            this.setCertIssueDate(LocalDateTime.parse("0001-01-01T00:00:00"));
+            this.setCertIssueByEmpl("");
+            this.setCertStatus("");
+            this.setCertType(new CertType(true));
+            this.setIsDuplicate(false);
+            this.setPrivatePractitionerLicenceNumber("");
+            this.setPrivatePractitionerAddress("");
+            this.setFilledOutMedCert("");
+            this.setHeadOfMedOrg("");
+            this.setRecipientId(new Recipient(true));
+            this.setPrevCertId(null);
+        }
+    }
 }
