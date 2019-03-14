@@ -5,19 +5,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.MedCert;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.MedCertBirth;
+import ru.vitasoft.pilipenko.MIAC_Tables.services.MedCertBirthSvc;
 import ru.vitasoft.pilipenko.MIAC_Tables.services.MedCertSvc;
 
 @RestController
 @RequestMapping("/rest")
-public class MedCertController {
+public class MedCertBirthController {
 
     @Autowired
-    MedCertSvc medCertSvc;
+    MedCertBirthSvc medCertBirthSvc;
 
-    @GetMapping("/GetEmptyMedCert")
-    public MedCert getEmptyMedCert(){
+    @GetMapping("/GetEmptyMedCertBirth")
+    public MedCertBirth getEmptyMedCert(){
 
-        return medCertSvc.getEmptyMedCertSvc();
+        return medCertBirthSvc.getEmptyMedCertSvc();
 
     }
 

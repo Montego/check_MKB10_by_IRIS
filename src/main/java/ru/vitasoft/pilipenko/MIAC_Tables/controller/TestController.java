@@ -150,26 +150,6 @@ public class TestController {
         return response;
     }
 
-    @GetMapping("/GetEmptyMedCertBirth")
-    public MedCertBirth getEmptyMedCertBirth(){
-
-        return new MedCertBirth(true);
-
-    }
-
-    @GetMapping("/GetEmptyMedCertDeath")
-    public MedCertDeath getEmptyMedCertDeath(){
-
-        return new MedCertDeath(true);
-
-    }
-
-    @GetMapping("/GetEmptyMedCertPerinatalDeath")
-    public MedCertPerinatalDeath getEmptyMedCertPerinatalDeath(){
-
-        return new MedCertPerinatalDeath(true);
-
-    }
 
 
 }
