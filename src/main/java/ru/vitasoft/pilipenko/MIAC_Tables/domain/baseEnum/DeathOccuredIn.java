@@ -7,6 +7,9 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 
 @Entity
 @Getter
@@ -14,8 +17,11 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Table(name = "BE_DeathOccuredIn")
 public class DeathOccuredIn {
+    @PositiveOrZero
     @Id
     private Integer id;
+    @NotNull
+    @Size(min = 1)
     private String name;
 
     //конструктор для информативного заполения JSON

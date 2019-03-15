@@ -4,9 +4,17 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+
+//TODO убрать каскадирование
 
 @Entity
 @Getter
@@ -15,14 +23,20 @@ import java.time.LocalDateTime;
 @Table(name = "D_ActRecord")
 public class ActRecords {
 
+    @Positive
     @Id
     private Integer act_record_id;
+
+    @NotNull
+    @Min(1)
     private Integer number;
 
+    @NullOrAfter1900
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime date;
 
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "CivilRegistryDepartments")
     private CivilRegistryDepartments departmentId;  //FK
 

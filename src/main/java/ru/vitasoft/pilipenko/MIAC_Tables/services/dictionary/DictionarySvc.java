@@ -8,6 +8,7 @@ import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.FIAS.*;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.Users.ExternalUsers;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.Users.MiacUsers;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.Users.Users;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.MedCertBirth;
 import ru.vitasoft.pilipenko.MIAC_Tables.repository.baseEnum.*;
 import ru.vitasoft.pilipenko.MIAC_Tables.repository.dictionary.*;
 import ru.vitasoft.pilipenko.MIAC_Tables.repository.dictionary.FIAS.*;
@@ -254,4 +255,11 @@ public class DictionarySvc {
 
 //endregion
 
+
+    //Удалить после отладки
+    public BirthType getEmptyBirthType(){
+
+        return new BirthType(true);
+
+    }
 }

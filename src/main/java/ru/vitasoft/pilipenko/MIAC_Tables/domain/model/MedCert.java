@@ -6,12 +6,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.CertType;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.Recipient;
+import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900;
+import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900DateOnly;
 
 import javax.persistence.*;
-import java.security.Certificate;
+import javax.validation.constraints.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+//TODO убрать каскадирование
 
 @Entity
 @Cacheable(value = true)
@@ -22,30 +29,46 @@ import java.time.LocalDateTime;
 @Table(name = "MedCertRepository")
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class MedCert {
+
+    @Positive
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer medCertId;
 
+    @Positive
     private Integer certSeries;
+
+    @Positive
     private Integer certNumber;
 
+    @PastOrPresent
+    @NullOrAfter1900DateOnly
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDateTime certIssueDate;
+    //@JsonFormat(pattern = "dd.MM.yyyy'T'HH:mm:ss.SSS'Z'")
+    private LocalDate certIssueDate;
 
+    @Size(max = 255)
     private String certIssueByEmpl;
+    @Size(max = 50)
     private String certStatus;
 
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "certType")
     private CertType certType;                  //enum
 
     private Boolean isDuplicate;
+    @Size(max = 255)
     private String privatePractitionerLicenceNumber;
+    @Size(max = 255)
     private String privatePractitionerAddress;
+    @Size(max = 255)
     private String filledOutMedCert;            //boolean?
+    @Size(max = 255)
     private String headOfMedOrg;
 
-    @OneToOne
+    @NotNull
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "RecipientId")
     private Recipient recipientId;              //FK
 
@@ -59,7 +82,7 @@ public class MedCert {
             this.setMedCertId(-1);
             this.setCertSeries(-1);
             this.setCertNumber(-1);
-            this.setCertIssueDate(LocalDateTime.parse("0001-01-01T00:00:00"));
+            this.setCertIssueDate(LocalDate.parse("0001-01-01"));
             this.setCertIssueByEmpl("");
             this.setCertStatus("");
             this.setCertType(new CertType(true));

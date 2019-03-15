@@ -4,9 +4,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.MedCertDeath;
+import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900;
+import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900DateOnly;
 
 import javax.persistence.*;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Positive;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,6 +22,7 @@ import java.time.LocalDateTime;
 @Table(name = "D_Mkb10")
 public class Surgeries {
 
+    @Positive
     @Id
     private Integer surgeryId;
 
@@ -23,8 +30,11 @@ public class Surgeries {
     @JoinColumn(name = "DeathReasonId")
     private DeathReasons deathReasonId;
 
+    @Past
+    @NullOrAfter1900DateOnly
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDateTime date;
+    private LocalDate date;
 
     @ManyToOne
     @JoinColumn(name = "medCertDeathId")
@@ -37,7 +47,7 @@ public class Surgeries {
 
             this.setSurgeryId(-1);
             this.setDeathReasonId(new DeathReasons(true));
-            this.setDate(LocalDateTime.parse("0001-01-01T00:00:00"));
+            this.setDate(LocalDate.parse("0001-01-01"));
             this.setMedCertDeathId(new MedCertDeath(true));
 
         }

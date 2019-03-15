@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Positive;
 
 @Entity
 @Getter
@@ -14,6 +15,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Table(name = "D_ExternalUsers")
 public class ExternalUsers {
+    @Positive
     @Id
     private Integer externalUserId;
 

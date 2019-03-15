@@ -3,12 +3,11 @@ package ru.vitasoft.pilipenko.MIAC_Tables.controller;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.MedCert;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.MedCertBirth;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.MedCertDeath;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.MedCertPerinatalDeath;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.BirthType;
+
 import ru.vitasoft.pilipenko.MIAC_Tables.model.TestUsers;
 import ru.vitasoft.pilipenko.MIAC_Tables.repository.TestRepository;
+import ru.vitasoft.pilipenko.MIAC_Tables.repository.baseEnum.BirthTypeRepository;
 import ru.vitasoft.pilipenko.MIAC_Tables.repository.model.MedCertBirthRepository;
 import ru.vitasoft.pilipenko.MIAC_Tables.repository.model.MedCertDeathRepository;
 import ru.vitasoft.pilipenko.MIAC_Tables.repository.model.MedCertPerinatalDeathRepository;
@@ -150,6 +149,20 @@ public class TestController {
         return response;
     }
 
+    @Autowired
+    BirthTypeRepository  dicRepository;
+
+    @PostMapping("/NewOneD")
+    public JSONObject testNewOneD(@RequestBody BirthType birthType)  {
+
+        JSONObject response = new JSONObject();
+
+        dicRepository.save(birthType);
+
+        response.put("message", "ok");
+        return response;
+
+    }
 
 
 }

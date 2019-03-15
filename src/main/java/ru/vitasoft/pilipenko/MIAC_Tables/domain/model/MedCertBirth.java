@@ -9,10 +9,16 @@ import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.*;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.*;
+import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900;
+import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900DateOnly;
+import ru.vitasoft.pilipenko.MIAC_Tables.validator.YearBeforeThis;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,17 +29,23 @@ import java.time.LocalDateTime;
 @Table(name = "MedCertBirth")
 @JsonInclude(JsonInclude.Include.ALWAYS) //??? Требуется ли в данном случае Json?
 public class MedCertBirth {
+
+    @Positive
     @Id
     @Column(name = "medCertBirthId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "MedCertId")
     private MedCert medCertId;                       //mod
 
+    @Size(max = 255)
     private String lastName;
+    @Size(max = 255)
     private String firstName;
+    @Size(max = 255)
     private String patronymicName;
 
     @ManyToOne
@@ -48,7 +60,9 @@ public class MedCertBirth {
     @JoinColumn(name = "WasBornFetus")
     private WasBornFetus wasBornFetus;              //enum
 
+    @Positive
     private Integer weight;
+    @Positive
     private Integer length;
 
     @ManyToOne
@@ -62,22 +76,33 @@ public class MedCertBirth {
     @ManyToOne
     @JoinColumn(name = "IssuedByMedicalAssistant")
     private IssuedByMedicalAssistant issuedByMedicalAssistant;       //enum
-
+    @Size(max = 255)
     private String motherLastName;
+    @Size(max = 255)
     private String motherFirstName;
+    @Size(max = 255)
     private String motherPatronymicName;
+
+    @PositiveOrZero
     private Integer firstAppearanceToDoctor;
+    @Positive
     private Integer childNumber;
 
+    @NullOrAfter1900
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime childBirthTimeDate;        //Дата и время
 
+    @NullOrAfter1900DateOnly
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDateTime motherBirthDate;           //Дата
+    private LocalDate motherBirthDate;           //Дата
 
     @JsonProperty("motherBirthDateNone")
     private Boolean getMotherBirthDateNone;
 
+    @Min(1900)
+    @YearBeforeThis
     private Integer motherBirthYear;
 
     @ManyToOne
@@ -118,7 +143,7 @@ public class MedCertBirth {
             this.setFirstAppearanceToDoctor(-1);
             this.setChildNumber(-1);
             this.setChildBirthTimeDate(LocalDateTime.parse("0001-01-01T00:00:00")); //Дата и время
-            this.setMotherBirthDate(LocalDateTime.parse("0001-01-01T00:00:00"));    //Дата
+            this.setMotherBirthDate(LocalDate.parse("0001-01-01"));    //Дата
             this.setGetMotherBirthDateNone(false);
             this.setMotherBirthYear(-1);
             this.setMotherFamilyStatusId(new FamilyStatus(true));      //dict

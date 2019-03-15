@@ -4,10 +4,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.RelationshipToChild;
+import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900;
+import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900DateOnly;
 
 import javax.persistence.*;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+//TODO убрать каскадирование
 
 @Entity
 @Getter
@@ -15,25 +24,36 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Table(name = "D_Recipient")
 public class Recipient {
+
+    @Positive
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer recipientId;
+    @Size(max = 255)
     private String lastName;
+    @Size(max = 255)
     private String firstName;
+    @Size(max = 255)
     private String patronymicName;
+    @Size(max = 255)
     private String documentSeries;
+    @Size(max = 255)
     private String documentNumber;
 
+    @PastOrPresent
+    @NullOrAfter1900DateOnly
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDateTime documentIssueDate;
+    private LocalDate documentIssueDate;
 
+    @Size(max = 255)
     private String issuedBy;
 
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "RelationshipToChild")
     private RelationshipToChild relationshipToChild;    //enum
 
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "DocTypeId")
     private DocType docTypeId;                          //dict
 
@@ -46,7 +66,7 @@ public class Recipient {
             this.setPatronymicName("");
             this.setDocumentSeries("");
             this.setDocumentNumber("");
-            this.setDocumentIssueDate(LocalDateTime.parse("0001-01-01T00:00:00"));
+            this.setDocumentIssueDate(LocalDate.parse("0001-01-01"));
             this.setIssuedBy("");
             this.setRelationshipToChild(new RelationshipToChild(true));    //enum
             this.setDocTypeId(new DocType(true));                          //dict

@@ -217,5 +217,10 @@ public class DictionaryController {
 
 //endregion
 
+    @GetMapping(value = "/EmptyBirthType")
+    public BirthType birthTypeGetEmpty() {
+        return dictionarySvc.getEmptyBirthType();
+    }
+
 
 }

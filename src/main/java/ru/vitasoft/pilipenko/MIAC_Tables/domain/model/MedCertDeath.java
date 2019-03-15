@@ -6,13 +6,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.DeathOccuredIn;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.DeathReasonsEstablishedBy;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.ReasonsForDeathEstablishing;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.Sex;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.*;
+import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900;
+import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900DateOnly;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,30 +29,43 @@ import java.time.LocalDateTime;
 @Table(name = "MedCertDeath")
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class MedCertDeath {
+
+    @Positive
     @Id
     @Column(name = "medCertDeathId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id = -1;//
+    private Integer id;//
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "MedCertId")
     private MedCert medCertId;                      //FK
 
-    private String bodyNumber = "";
+    @Size(max = 255)
+    private String bodyNumber;
 
-    private String lastName = "";
-    private String firstName = "";
-    private String patronymicName = "";
+    @Size(max = 255)
+    private String lastName;
+    @Size(max = 255)
+    private String firstName;
+    @Size(max = 255)
+    private String patronymicName;
 
     @ManyToOne
     @JoinColumn(name = "Sex")
     private Sex sex;                                //enum
 
+    @NullOrAfter1900DateOnly
+    @PastOrPresent
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDateTime birthDate = LocalDateTime.parse("0001-01-01T00:00:00");
+    private LocalDate birthDate;
 
+    @NullOrAfter1900
+    @PastOrPresent
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
-    private LocalDateTime deathDate = LocalDateTime.parse("0001-01-01T00:00:00");
+    private LocalDateTime deathDate;
 
     @ManyToOne
     @JoinColumn(name = "DeathResultedFrom")
@@ -85,10 +103,11 @@ public class MedCertDeath {
     @JoinColumn(name = "MedOrgId")
     private MedOrg medOrgId;                       //FK
 
-    private Integer birthYear = -1;
+    @Min(1900)
+    private Integer birthYear;
 
-    private Boolean birthDateNone = false;
-    private Boolean birthDateUnknown = false;
+    private Boolean birthDateNone;
+    private Boolean birthDateUnknown;
 
     //конструктор для информативного заполения JSON
     public MedCertDeath(Boolean defaultValues) {
@@ -99,7 +118,7 @@ public class MedCertDeath {
         this.setFirstName("");
         this.setPatronymicName("");
         this.setSex(new Sex(true));                                //enum
-        this.setBirthDate(LocalDateTime.parse("0001-01-01T00:00:00"));
+        this.setBirthDate(LocalDate.parse("0001-01-01"));
         this.setDeathDate(LocalDateTime.parse("0001-01-01T00:00:00"));
         this.setDeathResultedFrom(new DeathReasons(true));         //enum ???
         this.setDeathOccuredIn(new DeathOccuredIn(true));          //enum

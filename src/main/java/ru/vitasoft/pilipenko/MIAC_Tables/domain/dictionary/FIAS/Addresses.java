@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 @Entity
 @Getter
@@ -13,15 +15,23 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "D_Addresses")
 public class Addresses {
-
+    @Positive
     @Id
     private Integer addressId;
+    @Size(max = 255)
     private String refType;
+
+    @Positive
     private Integer refId;
+
+    @Positive
     private Integer addressType;
 
+    @Size(max = 255)
     private String roomNumber;
+    @Size(max = 255)
     private String building;
+    @Size(max = 255)
     private String street;
 
     @ManyToOne
