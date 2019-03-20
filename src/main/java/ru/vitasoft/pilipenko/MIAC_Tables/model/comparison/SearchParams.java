@@ -91,8 +91,8 @@ public class SearchParams {
         if ((this.childBirthTimeDateLeft != null || this.childBirthTimeDateRight != null) && this.childBirthTimeDateOperation != null){
             addNewSearchElement(resultArray,
                     "childBirthTimeDate",
-                    childBirthTimeDateLeft.toString(),
-                    childBirthTimeDateRight.toString(),
+                    childBirthTimeDateLeft,
+                    childBirthTimeDateRight,
                     "DateTime",
                     childBirthTimeDateOperation);
         }
@@ -136,9 +136,9 @@ public class SearchParams {
         if ((this.certIssueDateLeft != null || this.certIssueDateRight != null) && this.certIssueDateOperation != null){
             addNewSearchElement(resultArray,
                     "certIssueDate",
-                    certIssueDateLeft.toString(),
-                    certIssueDateRight.toString(),
-                    "DateTime",
+                    certIssueDateLeft,
+                    certIssueDateRight,
+                    "Date",
                     certIssueDateOperation);
         }
 

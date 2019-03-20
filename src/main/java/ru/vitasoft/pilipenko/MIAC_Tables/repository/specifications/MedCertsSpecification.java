@@ -34,13 +34,10 @@ public class MedCertsSpecification {
                         return cb.like(r.get(searchElement.propertyName),"%" + searchElement.comparisonValue1.toString() + "%");
                     case 3:
 
-                        System.out.println(searchElement.comparisonValue1.getClass().toString());
-                        System.out.println(searchElement.comparisonValue1.toString());
-                        System.out.println(searchElement.comparisonValue2.toString());
-
                         return cb.between(r.get(searchElement.propertyName),
-                                (LocalDateTime) LocalDateTime.parse(searchElement.comparisonValue1.toString()),
-                                (LocalDateTime) LocalDateTime.parse(searchElement.comparisonValue2.toString()));
+                                (Comparable) searchElement.comparisonValue1,
+                                (Comparable) searchElement.comparisonValue2);
+
                     case 4:
                         return cb.greaterThanOrEqualTo(r.get(searchElement.propertyName),(Comparable) searchElement.comparisonValue1);
                     case 5:
@@ -52,19 +49,5 @@ public class MedCertsSpecification {
                 }
             }
         };
-        //return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("firstName"),firstName);
     }
-
-    public static Specification<MedCertBirth> byLastName(final String lastName,final  Integer operation){
-        if (operation == 1){
-            return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("lastName"),lastName);
-        }else{
-            return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("lastName"),"%" + lastName + "%");
-        }
-    }
-
-
-
-
-
 }
