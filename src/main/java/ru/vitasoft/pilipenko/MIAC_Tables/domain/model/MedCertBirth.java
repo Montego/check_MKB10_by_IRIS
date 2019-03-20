@@ -21,6 +21,8 @@ import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+//TODO в этом классе и связанных для всех ссылочных объектов было добавлено каскадирование, убрать его после проверки
+
 @Entity
 @Getter
 @Setter
@@ -37,7 +39,7 @@ public class MedCertBirth {
     private Integer Id;
 
     @NotNull
-    @OneToOne
+    @OneToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "MedCertId")
     private MedCert medCertId;                       //mod
 
@@ -48,15 +50,15 @@ public class MedCertBirth {
     @Size(max = 255)
     private String patronymicName;
 
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "ChildBirthOccured")
     private ChildBirthOccured childBirthOccured;    //enum
 
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "Sex")
     private Sex sex;                                //enum
 
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "WasBornFetus")
     private WasBornFetus wasBornFetus;              //enum
 
@@ -65,15 +67,15 @@ public class MedCertBirth {
     @Positive
     private Integer length;
 
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "personTookBirthId")
     private PersonTookBirth personTookBirthId;      //dict
 
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "MedOrgId")
     private MedOrg medOrgId;                       //dict
 
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "IssuedByMedicalAssistant")
     private IssuedByMedicalAssistant issuedByMedicalAssistant;       //enum
     @Size(max = 255)
@@ -105,19 +107,19 @@ public class MedCertBirth {
     @YearBeforeThis
     private Integer motherBirthYear;
 
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "MotherFamilyStatusId")
     private FamilyStatus motherFamilyStatusId;      //dict
 
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "MotherEduTypeId")
     private EduType motherEduTypeId;                //dict
 
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "motherOccupationId")
     private Occupation motherOccupationId;          //dict
 
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "BirthType")
     private BirthType birthType;                    //enum
 

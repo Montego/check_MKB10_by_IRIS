@@ -37,7 +37,7 @@ public class MedCertDeath {
     private Integer id;//
 
     @NotNull
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "MedCertId")
     private MedCert medCertId;                      //FK
 

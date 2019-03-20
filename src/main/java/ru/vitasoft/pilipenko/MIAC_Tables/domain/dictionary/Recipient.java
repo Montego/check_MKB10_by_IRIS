@@ -49,11 +49,11 @@ public class Recipient {
     @Size(max = 255)
     private String issuedBy;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "RelationshipToChild")
     private RelationshipToChild relationshipToChild;    //enum
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "DocTypeId")
     private DocType docTypeId;                          //dict
 

@@ -33,12 +33,13 @@ public class MedCertDeathSvc {
 
     }
 
-
     public MedCertDeath getEmptyMedCertSvc(){
 
         return new MedCertDeath(true);
 
     }
+
+
 
 
 }

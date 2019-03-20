@@ -36,7 +36,7 @@ public class ActRecords {
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime date;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "CivilRegistryDepartments")
     private CivilRegistryDepartments departmentId;  //FK
 

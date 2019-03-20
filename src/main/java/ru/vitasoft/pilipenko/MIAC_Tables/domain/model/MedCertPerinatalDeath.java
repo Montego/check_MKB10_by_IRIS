@@ -38,11 +38,11 @@ public class MedCertPerinatalDeath {
     private Integer id;                             //
 
     @NotNull
-    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    @OneToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "MedCertId")
     private MedCert medCertId;                      //FK
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "DeathResultedWhen")
     private DeathResultedWhen deathResultedWhen;    //enum
 
@@ -72,27 +72,27 @@ public class MedCertPerinatalDeath {
     @Size(max = 255)
     private String patronymicName;                  //
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "DeathOccuredIn")
     private DeathOccuredIn deathOccuredIn;            //enum
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "Sex")
     private Sex sex;                                //enum
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "Fetus")
     private Fetus fetus;                            //enum
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "DeathOccuredFrom")
     private DeathOccuredFrom deathOccuredFrom;      //enum
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "ReasonsEstablishedBy")
     private DeathReasonsEstablishedBy reasonsEstablishedBy; //enum
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "ReasonsEstablishedOnBasisOf")
     private DeathReasonsEstablishedOnBasisOf reasonsEstablishedOnBasisOf;    //enum
 
@@ -101,15 +101,15 @@ public class MedCertPerinatalDeath {
     @PositiveOrZero
     private Integer length;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "ActRecordId")
     private ActRecords actRecordId;                  //FK
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "PersonTookBirthId")
     private PersonTookBirth personTookBirthId;      //FK
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "medOrgId")
     private MedOrg medOrgId;                        //FK
 
@@ -136,15 +136,15 @@ public class MedCertPerinatalDeath {
     @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate motherBirthDate;          //
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "MotherFamilyStatusId")
     private FamilyStatus motherFamilyStatusId;      //FK
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "MotherEduTypeId")
     private EduType motherEduTypeId;                //FK
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "MotherOccupationId")
     private Occupation motherOccupationId;          //FK
 

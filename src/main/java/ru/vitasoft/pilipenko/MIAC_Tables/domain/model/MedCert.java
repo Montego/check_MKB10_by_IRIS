@@ -9,14 +9,11 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.CertType;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.Recipient;
-import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900;
 import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900DateOnly;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 //TODO убрать каскадирование
 
@@ -53,7 +50,7 @@ public class MedCert {
     @Size(max = 50)
     private String certStatus;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "certType")
     private CertType certType;                  //enum
 
@@ -68,7 +65,7 @@ public class MedCert {
     private String headOfMedOrg;
 
     @NotNull
-    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    @OneToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "RecipientId")
     private Recipient recipientId;              //FK
 
