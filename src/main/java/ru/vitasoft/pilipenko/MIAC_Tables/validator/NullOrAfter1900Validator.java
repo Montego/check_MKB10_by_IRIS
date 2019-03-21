@@ -2,7 +2,6 @@ package ru.vitasoft.pilipenko.MIAC_Tables.validator;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 

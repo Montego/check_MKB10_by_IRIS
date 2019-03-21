@@ -35,58 +35,58 @@ public class MedCertPerinatalDeath {
     @Id
     @Column(name = "MedCertPerinatalDeathId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;                             //
+    private Integer id;                                     //
 
     @NotNull
     @OneToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "MedCertId")
-    private MedCert medCertId;                      //FK
+    private MedCert medCertId;                              //FK
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "DeathResultedWhen")
-    private DeathResultedWhen deathResultedWhen;    //enum
+    private DeathResultedWhen deathResultedWhen;            //enum
 
     @NullOrAfter1900
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
-    private LocalDateTime deadFetus;                //date time?
+    private LocalDateTime deadFetus;                        //date time?
 
     @NullOrAfter1900
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
-    private LocalDateTime childWasAlive;            //date time?
+    private LocalDateTime childWasAlive;                    //date time?
 
     @NullOrAfter1900
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
-    private LocalDateTime childDied;                //date time?
+    private LocalDateTime childDied;                        //date time?
 
-    private Integer civilRegistryOfficeWorker;      //
+    private Integer civilRegistryOfficeWorker;              //
     @Size(max = 255)
-    private String bodyNumber;                      //
-    private Integer deathChildNumber;               //
+    private String bodyNumber;                              //
+    private Integer deathChildNumber;                       //
     @Size(max = 255)
-    private String lastName;                        //
+    private String lastName;                                //
     @Size(max = 255)
-    private String firstName;                       //
+    private String firstName;                               //
     @Size(max = 255)
-    private String patronymicName;                  //
+    private String patronymicName;                          //
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "DeathOccuredIn")
-    private DeathOccuredIn deathOccuredIn;            //enum
+    private DeathOccuredIn deathOccuredIn;                  //enum
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "Sex")
-    private Sex sex;                                //enum
+    private Sex sex;                                        //enum
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "Fetus")
-    private Fetus fetus;                            //enum
+    private Fetus fetus;                                    //enum
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "DeathOccuredFrom")
-    private DeathOccuredFrom deathOccuredFrom;      //enum
+    private DeathOccuredFrom deathOccuredFrom;              //enum
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "ReasonsEstablishedBy")
@@ -97,9 +97,9 @@ public class MedCertPerinatalDeath {
     private DeathReasonsEstablishedOnBasisOf reasonsEstablishedOnBasisOf;    //enum
 
     @PositiveOrZero
-    private Integer weight;
+    private Integer weight;                         //
     @PositiveOrZero
-    private Integer length;
+    private Integer length;                         //
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "ActRecordId")
@@ -134,7 +134,7 @@ public class MedCertPerinatalDeath {
     @NullOrAfter1900DateOnly
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDate motherBirthDate;          //
+    private LocalDate motherBirthDate;              //
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "MotherFamilyStatusId")
@@ -157,41 +157,43 @@ public class MedCertPerinatalDeath {
 
     //конструктор для информативного заполения JSON
     public MedCertPerinatalDeath(Boolean defaultValues) {
-        this.setId(-1);//
-        this.setMedCertId(new MedCert(true));                      //FK
-        this.setDeathResultedWhen(new DeathResultedWhen(true));    //enum
-        this.setDeadFetus(LocalDateTime.parse("0001-01-01T00:00:00"));                //date time?
-        this.setChildWasAlive(LocalDateTime.parse("0001-01-01T00:00:00"));            //date time?
-        this.setChildDied(LocalDateTime.parse("0001-01-01T00:00:00"));                //date time?
-        this.setCivilRegistryOfficeWorker(-1);       //
-        this.setBodyNumber("");                      //
-        this.setDeathChildNumber(-1);                //
-        this.setLastName("");                        //
-        this.setFirstName("");                       //
-        this.setPatronymicName("");                  //
-        this.setDeathOccuredIn(new DeathOccuredIn(true));                  //enum
-        this.setSex(new Sex(true));                        //enum
-        this.setFetus(new Fetus(true));                    //enum
-        this.setDeathOccuredFrom(new DeathOccuredFrom(true));                               //enum
-        this.setReasonsEstablishedBy(new DeathReasonsEstablishedBy(true));                  //enum
-        this.setReasonsEstablishedOnBasisOf(new DeathReasonsEstablishedOnBasisOf(true));    //enum
-        this.setWeight(-1);
-        this.setLength(-1);
-        this.setActRecordId(new ActRecords(true));                 //FK
-        this.setPersonTookBirthId(new PersonTookBirth(true));      //FK
-        this.setMedOrgId(new MedOrg(true));                        //FK
-        this.setMotherLastName("");                     //
-        this.setMotherFirstName("");                    //
-        this.setMotherPatronymicName("");               //
-        this.setMotherFirstAppearanceToDoctor(-1);      //
-        this.setMotherChildNumber(-1);                  //
-        this.setChildBirthTimeDate(LocalDateTime.parse("0001-01-01T00:00:00")); //
-        this.setMotherBirthDate(LocalDate.parse("0001-01-01"));    //
-        this.setMotherFamilyStatusId(new FamilyStatus(true));      //FK
-        this.setMotherEduTypeId(new EduType(true));                //FK
-        this.setMotherOccupationId(new Occupation(true));          //FK
-        this.setMotherBirthYear(-1);           //
-        this.setMotherBirthDateNone(false);    //
-        this.setMotherBirthCount(-1);          //
+        if (defaultValues){
+            this.setId(-1);                                                         //
+            this.setMedCertId(new MedCert(true));                      //FK
+            this.setDeathResultedWhen(new DeathResultedWhen(true));    //enum
+            this.setDeadFetus(LocalDateTime.parse("0001-01-01T00:00:00"));          //date time?
+            this.setChildWasAlive(LocalDateTime.parse("0001-01-01T00:00:00"));      //date time?
+            this.setChildDied(LocalDateTime.parse("0001-01-01T00:00:00"));          //date time?
+            this.setCivilRegistryOfficeWorker(-1);                                  //
+            this.setBodyNumber("");                                                 //
+            this.setDeathChildNumber(-1);                                           //
+            this.setLastName("");                                                   //
+            this.setFirstName("");                                                  //
+            this.setPatronymicName("");                                             //
+            this.setDeathOccuredIn(new DeathOccuredIn(true));           //enum
+            this.setSex(new Sex(true));                                 //enum
+            this.setFetus(new Fetus(true));                             //enum
+            this.setDeathOccuredFrom(new DeathOccuredFrom(true));                               //enum
+            this.setReasonsEstablishedBy(new DeathReasonsEstablishedBy(true));                  //enum
+            this.setReasonsEstablishedOnBasisOf(new DeathReasonsEstablishedOnBasisOf(true));    //enum
+            this.setWeight(-1);                                                     //
+            this.setLength(-1);                                                     //
+            this.setActRecordId(new ActRecords(true));                 //FK
+            this.setPersonTookBirthId(new PersonTookBirth(true));      //FK
+            this.setMedOrgId(new MedOrg(true));                        //FK
+            this.setMotherLastName("");                                             //
+            this.setMotherFirstName("");                                            //
+            this.setMotherPatronymicName("");                                       //
+            this.setMotherFirstAppearanceToDoctor(-1);                              //
+            this.setMotherChildNumber(-1);                                          //
+            this.setChildBirthTimeDate(LocalDateTime.parse("0001-01-01T00:00:00")); //
+            this.setMotherBirthDate(LocalDate.parse("0001-01-01"));                 //
+            this.setMotherFamilyStatusId(new FamilyStatus(true));      //FK
+            this.setMotherEduTypeId(new EduType(true));                //FK
+            this.setMotherOccupationId(new Occupation(true));          //FK
+            this.setMotherBirthYear(-1);                                            //
+            this.setMotherBirthDateNone(false);                                     //
+            this.setMotherBirthCount(-1);                                           //
+        }
     }
 }

@@ -111,26 +111,28 @@ public class MedCertDeath {
 
     //конструктор для информативного заполения JSON
     public MedCertDeath(Boolean defaultValues) {
-        this.setId(-1);//
-        this.setMedCertId(new MedCert(true));                      //FK
-        this.setBodyNumber("");
-        this.setLastName("");
-        this.setFirstName("");
-        this.setPatronymicName("");
-        this.setSex(new Sex(true));                                //enum
-        this.setBirthDate(LocalDate.parse("0001-01-01"));
-        this.setDeathDate(LocalDateTime.parse("0001-01-01T00:00:00"));
-        this.setDeathResultedFrom(new DeathReasons(true));         //enum ???
-        this.setDeathOccuredIn(new DeathOccuredIn(true));          //enum
-        this.setDeathReasonsEstablishedBy(new DeathReasonsEstablishedBy(true));      //enum
-        this.setReasonsForDeathEstablishing(new ReasonsForDeathEstablishing(true));    //enum
-        this.setFamilyStatusId(new FamilyStatus(true));           //FK
-        this.setEduTypeId(new EduType(true));                     //FK
-        this.setMedicId(new Medics(true));                        //FK
-        this.setOccupationId(new Occupation(true));               //FK
-        this.setMedOrgId(new MedOrg(true));                       //FK
-        this.setBirthYear(-1);
-        this.setBirthDateNone(false);
-        this.setBirthDateUnknown(false);
+        if (defaultValues){
+            this.setId(-1);//
+            this.setMedCertId(new MedCert(true));                      //FK
+            this.setBodyNumber("");
+            this.setLastName("");
+            this.setFirstName("");
+            this.setPatronymicName("");
+            this.setSex(new Sex(true));                                //enum
+            this.setBirthDate(LocalDate.parse("0001-01-01"));
+            this.setDeathDate(LocalDateTime.parse("0001-01-01T00:00:00"));
+            this.setDeathResultedFrom(new DeathReasons(true));         //enum ???
+            this.setDeathOccuredIn(new DeathOccuredIn(true));          //enum
+            this.setDeathReasonsEstablishedBy(new DeathReasonsEstablishedBy(true));      //enum
+            this.setReasonsForDeathEstablishing(new ReasonsForDeathEstablishing(true));    //enum
+            this.setFamilyStatusId(new FamilyStatus(true));           //FK
+            this.setEduTypeId(new EduType(true));                     //FK
+            this.setMedicId(new Medics(true));                        //FK
+            this.setOccupationId(new Occupation(true));               //FK
+            this.setMedOrgId(new MedOrg(true));                       //FK
+            this.setBirthYear(-1);
+            this.setBirthDateNone(false);
+            this.setBirthDateUnknown(false);
+        }
     }
 }

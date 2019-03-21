@@ -14,8 +14,12 @@ import ru.vitasoft.pilipenko.MIAC_Tables.services.dictionary.DictionarySvc;
 @RequestMapping("/Dictionary")
 public class DictionaryController {
 
+    private final DictionarySvc dictionarySvc;
+
     @Autowired
-    DictionarySvc dictionarySvc;
+    public DictionaryController(DictionarySvc dictionarySvc) {
+        this.dictionarySvc = dictionarySvc;
+    }
 
 //region baseEnum
 
@@ -216,11 +220,5 @@ public class DictionaryController {
     }
 
 //endregion
-
-    @GetMapping(value = "/EmptyBirthType")
-    public BirthType birthTypeGetEmpty() {
-        return dictionarySvc.getEmptyBirthType();
-    }
-
 
 }

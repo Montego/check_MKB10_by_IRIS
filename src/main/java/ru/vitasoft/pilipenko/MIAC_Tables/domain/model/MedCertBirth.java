@@ -29,125 +29,125 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "MedCertBirth")
-@JsonInclude(JsonInclude.Include.ALWAYS) //??? Требуется ли в данном случае Json?
+@JsonInclude(JsonInclude.Include.ALWAYS)
 public class MedCertBirth {
 
     @Positive
     @Id
     @Column(name = "medCertBirthId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer Id;                                 //
 
     @NotNull
     @OneToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "MedCertId")
-    private MedCert medCertId;                       //mod
+    private MedCert medCertId;                          //mod
 
     @Size(max = 255)
-    private String lastName;
+    private String lastName;                            //
     @Size(max = 255)
-    private String firstName;
+    private String firstName;                           //
     @Size(max = 255)
-    private String patronymicName;
+    private String patronymicName;                      //
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "ChildBirthOccured")
-    private ChildBirthOccured childBirthOccured;    //enum
+    private ChildBirthOccured childBirthOccured;        //enum
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "Sex")
-    private Sex sex;                                //enum
+    private Sex sex;                                    //enum
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "WasBornFetus")
-    private WasBornFetus wasBornFetus;              //enum
+    private WasBornFetus wasBornFetus;                  //enum
 
     @Positive
-    private Integer weight;
+    private Integer weight;                             //
     @Positive
-    private Integer length;
+    private Integer length;                             //
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "personTookBirthId")
-    private PersonTookBirth personTookBirthId;      //dict
+    private PersonTookBirth personTookBirthId;          //dict
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "MedOrgId")
-    private MedOrg medOrgId;                       //dict
+    private MedOrg medOrgId;                            //dict
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "IssuedByMedicalAssistant")
     private IssuedByMedicalAssistant issuedByMedicalAssistant;       //enum
     @Size(max = 255)
-    private String motherLastName;
+    private String motherLastName;                      //
     @Size(max = 255)
-    private String motherFirstName;
+    private String motherFirstName;                     //
     @Size(max = 255)
-    private String motherPatronymicName;
+    private String motherPatronymicName;                //
 
     @PositiveOrZero
-    private Integer firstAppearanceToDoctor;
+    private Integer firstAppearanceToDoctor;            //
     @Positive
-    private Integer childNumber;
+    private Integer childNumber;                        //
 
     @NullOrAfter1900
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
-    private LocalDateTime childBirthTimeDate;        //Дата и время
+    private LocalDateTime childBirthTimeDate;           //Дата и время
 
     @NullOrAfter1900DateOnly
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDate motherBirthDate;           //Дата
+    private LocalDate motherBirthDate;                  //Дата
 
     @JsonProperty("motherBirthDateNone")
-    private Boolean getMotherBirthDateNone;
+    private Boolean getMotherBirthDateNone;             //
 
     @Min(1900)
     @YearBeforeThis
-    private Integer motherBirthYear;
+    private Integer motherBirthYear;                    //
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "MotherFamilyStatusId")
-    private FamilyStatus motherFamilyStatusId;      //dict
+    private FamilyStatus motherFamilyStatusId;          //dict
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "MotherEduTypeId")
-    private EduType motherEduTypeId;                //dict
+    private EduType motherEduTypeId;                    //dict
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "motherOccupationId")
-    private Occupation motherOccupationId;          //dict
+    private Occupation motherOccupationId;              //dict
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}) //def fetch = EAGER
     @JoinColumn(name = "BirthType")
-    private BirthType birthType;                    //enum
+    private BirthType birthType;                        //enum
 
     //конструктор для информативного заполения JSON
     public MedCertBirth(Boolean defaultValues) {
         if (defaultValues) {
-            this.setId(-1);
+            this.setId(-1);                                                         //
             this.setMedCertId(new MedCert(true));                       //mod
-            this.setLastName("");
-            this.setFirstName("");
-            this.setPatronymicName("");
+            this.setLastName("");                                                   //
+            this.setFirstName("");                                                  //
+            this.setPatronymicName("");                                             //
             this.setChildBirthOccured(new ChildBirthOccured(true));    //enum
             this.setSex(new Sex(true));                                //enum
             this.setWasBornFetus(new WasBornFetus(true));              //enum
-            this.setWeight(-1);
-            this.setLength(-1);
+            this.setWeight(-1);                                                     //
+            this.setLength(-1);                                                     //
             this.setPersonTookBirthId(new PersonTookBirth(true));      //dict
             this.setMedOrgId(new MedOrg(true));                        //dict
             this.setIssuedByMedicalAssistant(new IssuedByMedicalAssistant(true));       //enum
-            this.setMotherLastName("");
-            this.setMotherFirstName("");
-            this.setMotherPatronymicName("");
-            this.setFirstAppearanceToDoctor(-1);
-            this.setChildNumber(-1);
+            this.setMotherLastName("");                                             //
+            this.setMotherFirstName("");                                            //
+            this.setMotherPatronymicName("");                                       //
+            this.setFirstAppearanceToDoctor(-1);                                    //
+            this.setChildNumber(-1);                                                //
             this.setChildBirthTimeDate(LocalDateTime.parse("0001-01-01T00:00:00")); //Дата и время
-            this.setMotherBirthDate(LocalDate.parse("0001-01-01"));    //Дата
-            this.setGetMotherBirthDateNone(false);
-            this.setMotherBirthYear(-1);
+            this.setMotherBirthDate(LocalDate.parse("0001-01-01"));                 //Дата
+            this.setGetMotherBirthDateNone(false);                                  //
+            this.setMotherBirthYear(-1);                                            //
             this.setMotherFamilyStatusId(new FamilyStatus(true));      //dict
             this.setMotherEduTypeId(new EduType(true));                //dict
             this.setMotherOccupationId(new Occupation(true));          //dict

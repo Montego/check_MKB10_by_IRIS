@@ -18,6 +18,10 @@ import java.util.ArrayList;
 
 public class SearchParams {
 
+    //region  Входные параметры отбора
+
+    //свойства основого сертификата
+
     public String firstName;
     public Integer firstNameOperation; //           = , like
 
@@ -35,6 +39,8 @@ public class SearchParams {
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     public LocalDateTime childBirthTimeDateRight;
     public Integer childBirthTimeDateOperation;//   = , > , < , between
+
+    //свойства сертификата по ссылке
 
     public Integer certSeries;
     public Integer certSeriesOperation;        //   = , like
@@ -57,17 +63,19 @@ public class SearchParams {
     public String certIssueByEmpl;          //Резолюция МИАЦ
     public Integer certIssueByEmplOperation;//      =
 
+    //endregion
+
     public ArrayList<SearchElement> toArrayList(){
 
-        ArrayList<SearchElement> resultArray = new ArrayList<SearchElement>();
+        ArrayList<SearchElement> resultArray = new ArrayList<>();
 
         if (this.firstName != null && this.firstNameOperation != null){
             addNewSearchElement(resultArray,
                                 "firstName",
                                 firstName,
                                 "",
-                                "String",
-                                firstNameOperation);
+                                firstNameOperation,
+                    "");
         }
 
         if (this.lastName != null && this.lastNameOperation != null){
@@ -75,8 +83,8 @@ public class SearchParams {
                     "lastName",
                                 lastName,
                                 "",
-                                "String",
-                                lastNameOperation);
+                                lastNameOperation,
+                    "");
         }
 
         if (this.patronymicName != null && this.patronymicNameOperation != null){
@@ -84,8 +92,8 @@ public class SearchParams {
                     "patronymicName",
                                 patronymicName,
                                 "",
-                                "String",
-                                patronymicNameOperation);
+                                patronymicNameOperation,
+                    "");
         }
 
         if ((this.childBirthTimeDateLeft != null || this.childBirthTimeDateRight != null) && this.childBirthTimeDateOperation != null){
@@ -93,8 +101,8 @@ public class SearchParams {
                     "childBirthTimeDate",
                     childBirthTimeDateLeft,
                     childBirthTimeDateRight,
-                    "DateTime",
-                    childBirthTimeDateOperation);
+                    childBirthTimeDateOperation,
+                    "");
         }
 
         if (this.certSeries != null && this.certSeriesOperation != null) {
@@ -102,8 +110,8 @@ public class SearchParams {
                     "certSeries",
                     certSeries.toString(),
                     "",
-                    "Integer",
-                    certSeriesOperation);
+                    certSeriesOperation,
+                    "medCertId");
         }
 
         if (this.certNumber != null && this.certNumberOperation != null) {
@@ -111,8 +119,8 @@ public class SearchParams {
                     "certNumber",
                     certNumber.toString(),
                     "",
-                    "Integer",
-                    certNumberOperation);
+                    certNumberOperation,
+                    "medCertId");
         }
 
         if (this.medCertId != null && this.medCertIdOperation != null) {
@@ -120,8 +128,8 @@ public class SearchParams {
                     "medCertId",
                     medCertId.toString(),
                     "",
-                    "Integer",
-                    medCertIdOperation);
+                    medCertIdOperation,
+                    "medCertId");
         }
 
         if (this.certStatus != null && this.certStatusOperation != null) {
@@ -129,8 +137,8 @@ public class SearchParams {
                     "certStatus",
                     certStatus,
                     "",
-                    "String",
-                    certStatusOperation);
+                    certStatusOperation,
+                    "medCertId");
         }
 
         if ((this.certIssueDateLeft != null || this.certIssueDateRight != null) && this.certIssueDateOperation != null){
@@ -138,8 +146,8 @@ public class SearchParams {
                     "certIssueDate",
                     certIssueDateLeft,
                     certIssueDateRight,
-                    "Date",
-                    certIssueDateOperation);
+                    certIssueDateOperation,
+                    "medCertId");
         }
 
         if (this.certIssueByEmpl != null && this.certIssueByEmplOperation != null) {
@@ -147,8 +155,8 @@ public class SearchParams {
                     "certIssueByEmpl",
                     certIssueByEmpl,
                     "",
-                    "String",
-                    certIssueByEmplOperation);
+                    certIssueByEmplOperation,
+                    "medCertId");
         }
 
         return resultArray;
@@ -156,18 +164,18 @@ public class SearchParams {
 
     public void addNewSearchElement(ArrayList<SearchElement> resultArray,
                                     String propertyName,
-                                    Object comparisonValue1,
-                                    Object comparisonValue2,
-                                    String typeOfValue,
-                                    Integer operation){
+                                    Comparable comparisonValue1,
+                                    Comparable comparisonValue2,
+                                    Integer operation,
+                                    String parentPropertyName){
 
         SearchElement curSearchElement = new SearchElement();
 
         curSearchElement.propertyName       = propertyName;
         curSearchElement.comparisonValue1   = comparisonValue1;
         curSearchElement.comparisonValue2   = comparisonValue2;
-        curSearchElement.typeOfValue        = typeOfValue;
         curSearchElement.operation          = operation;
+        curSearchElement.parentPropertyName = parentPropertyName;
 
         resultArray.add(curSearchElement);
 

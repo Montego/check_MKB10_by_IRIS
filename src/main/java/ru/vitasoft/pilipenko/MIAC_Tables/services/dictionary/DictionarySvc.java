@@ -8,7 +8,6 @@ import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.FIAS.*;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.Users.ExternalUsers;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.Users.MiacUsers;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.Users.Users;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.MedCertBirth;
 import ru.vitasoft.pilipenko.MIAC_Tables.repository.baseEnum.*;
 import ru.vitasoft.pilipenko.MIAC_Tables.repository.dictionary.*;
 import ru.vitasoft.pilipenko.MIAC_Tables.repository.dictionary.FIAS.*;
@@ -22,85 +21,127 @@ public class DictionarySvc {
 
 //region BaseEnums
 
-    @Autowired
+    private final
     BirthTypeRepository birthTypeRepository;
+
+    @Autowired
+    public DictionarySvc(BirthTypeRepository birthTypeRepository, DeathReasonsEstablishedByRepository deathReasonsEstablishedByRepository, ChildBirthOccuredRepository childBirthOccuredRepository, CertTypeRepository certTypeRepository, WasBornFetusRepository wasBornFetusRepository, ActRecordsRepository actRecordsRepository, ExternalUsersRepository externalUsersRepository, MiacUsersRepository miacUsersRepository, DeathOccuredFromRepository deathOccuredFromRepository, CivilRegistryDepartmentsRepository civilRegistryDepartmentsRepository, DeathOccuredInRepository deathOccuredInRepository, FamilyStatusRepository familyStatusRepository, DeathReasonsEstablishedOnBasisOfRepository deathReasonsEstablishedOnBasisOfRepository, DeathResultedWhenRepository deathResultedWhenRepositoryRepository, FetusRepository fetusRepository, IssuedByMedicalAssistantRepository issuedByMedicalAssistantRepository, OccupationRepository occupationRepository, DeathReasonsRepository deathReasonsRepository, ReasonsForDeathEstablishingRepository reasonsForDeathEstablishingRepository, SurgeriesRepository surgeriesRepository, UsersRepository usersRepository, MKB10Repository mKB10Repository, CitiesRepository citiesRepository, SubjectsOfFederationRepository subjectsOfFederationRepository, EduTypeRepository eduTypeRepository, CountriesRepository countriesRepository, SexRepository sexRepository, DocTypeRepository docTypeRepository, MedOrgRepository medOrgRepository, PersonTookBirthRepository personTookBirthRepository, DistrictsRepository districtsRepository, DeathReasonsDiagRepository deathReasonsDiagRepository, AddressesRepository addressesRepository, RelationshipToChildRepository relationshipToChildRepository, MedicsRepository medicsRepository, LocalitiesRepository localitiesRepository, RecipientRepository recipientRepository) {
+        this.birthTypeRepository = birthTypeRepository;
+        this.deathReasonsEstablishedByRepository = deathReasonsEstablishedByRepository;
+        this.childBirthOccuredRepository = childBirthOccuredRepository;
+        this.certTypeRepository = certTypeRepository;
+        this.wasBornFetusRepository = wasBornFetusRepository;
+        this.actRecordsRepository = actRecordsRepository;
+        this.externalUsersRepository = externalUsersRepository;
+        this.miacUsersRepository = miacUsersRepository;
+        this.deathOccuredFromRepository = deathOccuredFromRepository;
+        this.civilRegistryDepartmentsRepository = civilRegistryDepartmentsRepository;
+        this.deathOccuredInRepository = deathOccuredInRepository;
+        this.familyStatusRepository = familyStatusRepository;
+        this.deathReasonsEstablishedOnBasisOfRepository = deathReasonsEstablishedOnBasisOfRepository;
+        this.deathResultedWhenRepositoryRepository = deathResultedWhenRepositoryRepository;
+        this.fetusRepository = fetusRepository;
+        this.issuedByMedicalAssistantRepository = issuedByMedicalAssistantRepository;
+        this.occupationRepository = occupationRepository;
+        this.deathReasonsRepository = deathReasonsRepository;
+        this.reasonsForDeathEstablishingRepository = reasonsForDeathEstablishingRepository;
+        this.surgeriesRepository = surgeriesRepository;
+        this.usersRepository = usersRepository;
+        this.mKB10Repository = mKB10Repository;
+        this.citiesRepository = citiesRepository;
+        this.subjectsOfFederationRepository = subjectsOfFederationRepository;
+        this.eduTypeRepository = eduTypeRepository;
+        this.countriesRepository = countriesRepository;
+        this.sexRepository = sexRepository;
+        this.docTypeRepository = docTypeRepository;
+        this.medOrgRepository = medOrgRepository;
+        this.personTookBirthRepository = personTookBirthRepository;
+        this.districtsRepository = districtsRepository;
+        this.deathReasonsDiagRepository = deathReasonsDiagRepository;
+        this.addressesRepository = addressesRepository;
+        this.relationshipToChildRepository = relationshipToChildRepository;
+        this.medicsRepository = medicsRepository;
+        this.localitiesRepository = localitiesRepository;
+        this.recipientRepository = recipientRepository;
+    }
+
     public Iterable<BirthType> birthTypeFindAll() {
         return birthTypeRepository.findAll();
     }
 
-    @Autowired
+    private final
     CertTypeRepository certTypeRepository;
     public Iterable<CertType> certTypeFindAll() {
         return certTypeRepository.findAll();
     }
 
-    @Autowired
+    private final
     ChildBirthOccuredRepository childBirthOccuredRepository;
     public Iterable<ChildBirthOccured> childBirthOccuredFindAll() {
         return childBirthOccuredRepository.findAll();
     }
 
-    @Autowired
+    private final
     DeathOccuredFromRepository deathOccuredFromRepository;
     public Iterable<DeathOccuredFrom> deathOccuredFromFindAll() {
         return deathOccuredFromRepository.findAll();
     }
 
-    @Autowired
+    private final
     DeathOccuredInRepository deathOccuredInRepository;
     public Iterable<DeathOccuredIn> deathOccuredInFindAll() {
         return deathOccuredInRepository.findAll();
     }
 
-    @Autowired
+    private final
     DeathReasonsEstablishedByRepository deathReasonsEstablishedByRepository;
     public Iterable<DeathReasonsEstablishedBy> DeathReasonsEstablishedByFindAll() {
         return deathReasonsEstablishedByRepository.findAll();
     }
 
-    @Autowired
+    private final
     DeathReasonsEstablishedOnBasisOfRepository deathReasonsEstablishedOnBasisOfRepository;
     public Iterable<DeathReasonsEstablishedOnBasisOf> deathReasonsEstablishedOnBasisOfFindAll() {
         return deathReasonsEstablishedOnBasisOfRepository.findAll();
     }
 
-    @Autowired
+    private final
     DeathResultedWhenRepository deathResultedWhenRepositoryRepository;
     public Iterable<DeathResultedWhen> deathResultedWhenRepositoryFindAll() {
         return deathResultedWhenRepositoryRepository.findAll();
     }
 
-    @Autowired
+    private final
     FetusRepository fetusRepository;
     public Iterable<Fetus> fetusFindAll() {
         return fetusRepository.findAll();
     }
 
-    @Autowired
+    private final
     IssuedByMedicalAssistantRepository issuedByMedicalAssistantRepository;
     public Iterable<IssuedByMedicalAssistant> issuedByMedicalAssistantFindAll() {
         return issuedByMedicalAssistantRepository.findAll();
     }
 
-    @Autowired
+    private final
     ReasonsForDeathEstablishingRepository reasonsForDeathEstablishingRepository;
     public Iterable<ReasonsForDeathEstablishing> reasonsForDeathEstablishingFindAll() {
         return reasonsForDeathEstablishingRepository.findAll();
     }
 
-    @Autowired
+    private final
     RelationshipToChildRepository relationshipToChildRepository;
     public Iterable<RelationshipToChild> relationshipToChildFindAll() {
         return relationshipToChildRepository.findAll();
     }
 
-    @Autowired
+    private final
     SexRepository sexRepository;
     public Iterable<Sex> sexFindAll() {
         return sexRepository.findAll();
     }
 
-    @Autowired
+    private final
     WasBornFetusRepository wasBornFetusRepository;
     public Iterable<WasBornFetus> wasBornFetusFindAll() {
         return wasBornFetusRepository.findAll();
@@ -111,37 +152,37 @@ public class DictionarySvc {
 //region Dictionaries
 
     //region FIAS
-    @Autowired
+    private final
     AddressesRepository addressesRepository;
     public Iterable<Addresses> addressesFindAll() {
         return addressesRepository.findAll();
     }
 
-    @Autowired
+    private final
     CitiesRepository citiesRepository;
     public Iterable<Cities> citiesFindAll() {
         return citiesRepository.findAll();
     }
 
-    @Autowired
+    private final
     CountriesRepository countriesRepository;
     public Iterable<Countries> countriesFindAll() {
         return countriesRepository.findAll();
     }
 
-    @Autowired
+    private final
     DistrictsRepository districtsRepository;
     public Iterable<Districts> districtsFindAll() {
         return districtsRepository.findAll();
     }
 
-    @Autowired
+    private final
     LocalitiesRepository localitiesRepository;
     public Iterable<Localities> localitiesFindAll() {
         return localitiesRepository.findAll();
     }
 
-    @Autowired
+    private final
     SubjectsOfFederationRepository subjectsOfFederationRepository;
     public Iterable<SubjectsOfFederation> subjectsOfFederationFindAll() {
         return subjectsOfFederationRepository.findAll();
@@ -149,19 +190,19 @@ public class DictionarySvc {
     //endregion
 
     //region Users
-    @Autowired
+    private final
     ExternalUsersRepository externalUsersRepository;
     public Iterable<ExternalUsers> externalUsersFindAll() {
         return externalUsersRepository.findAll();
     }
 
-    @Autowired
+    private final
     MiacUsersRepository miacUsersRepository;
     public Iterable<MiacUsers> miacUsersFindAll() {
         return miacUsersRepository.findAll();
     }
 
-    @Autowired
+    private final
     UsersRepository usersRepository;
     public Iterable<Users> UsersFindAll() {
         return usersRepository.findAll();
@@ -169,85 +210,85 @@ public class DictionarySvc {
 
     //endregion
 
-    @Autowired
+    private final
     ActRecordsRepository actRecordsRepository;
     public Iterable<ActRecords> actRecordsFindAll() {
         return actRecordsRepository.findAll();
     }
 
-    @Autowired
+    private final
     CivilRegistryDepartmentsRepository civilRegistryDepartmentsRepository;
     public Iterable<CivilRegistryDepartments> civilRegistryDepartmentsFindAll() {
         return civilRegistryDepartmentsRepository.findAll();
     }
 
-    @Autowired
+    private final
     DeathReasonsDiagRepository deathReasonsDiagRepository;
     public Iterable<DeathReasonsDiag> deathReasonsDiagFindAll() {
         return deathReasonsDiagRepository.findAll();
     }
 
-    @Autowired
+    private final
     DeathReasonsRepository deathReasonsRepository;
     public Iterable<DeathReasons> deathReasonsFindAll() {
         return deathReasonsRepository.findAll();
     }
 
-    @Autowired
+    private final
     DocTypeRepository docTypeRepository;
     public Iterable<DocType> docTypeFindAll() {
         return docTypeRepository.findAll();
     }
 
-    @Autowired
+    private final
     EduTypeRepository eduTypeRepository;
     public Iterable<EduType> eduTypeFindAll() {
         return eduTypeRepository.findAll();
     }
 
-    @Autowired
+    private final
     FamilyStatusRepository familyStatusRepository;
     public Iterable<FamilyStatus> familyStatusFindAll() {
         return familyStatusRepository.findAll();
     }
 
-    @Autowired
+    private final
     MedicsRepository medicsRepository;
     public Iterable<Medics> medicsFindAll() {
         return medicsRepository.findAll();
     }
 
-    @Autowired
+    private final
     MedOrgRepository medOrgRepository;
     public Iterable<MedOrg> medOrgFindAll() {
         return medOrgRepository.findAll();
     }
 
-    @Autowired
+    private final
     MKB10Repository mKB10Repository;
     public Iterable<MKB10> mKB10FindAll() {
         return mKB10Repository.findAll();
     }
 
-    @Autowired
+    private final
     OccupationRepository occupationRepository;
     public Iterable<Occupation> occupationFindAll() {
         return occupationRepository.findAll();
     }
 
-    @Autowired
+    private final
     PersonTookBirthRepository personTookBirthRepository;
     public Iterable<PersonTookBirth> personTookBirthFindAll() {
         return personTookBirthRepository.findAll();
     }
 
-    @Autowired
+    private final
     RecipientRepository recipientRepository;
     public Iterable<Recipient> recipientRepositoryFindAll() {
         return recipientRepository.findAll();
     }
 
-    @Autowired
+    private final
     SurgeriesRepository surgeriesRepository;
     public Iterable<Surgeries> surgeriesRepositoryFindAll() {
         return surgeriesRepository.findAll();
@@ -255,11 +296,4 @@ public class DictionarySvc {
 
 //endregion
 
-
-    //Удалить после отладки
-    public BirthType getEmptyBirthType(){
-
-        return new BirthType(true);
-
-    }
 }

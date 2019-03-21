@@ -11,8 +11,14 @@ import org.json.simple.JSONObject;
 @RequestMapping("/rest")
 public class MedCertController {
 
+    private final MedCertSvc medCertSvc;
+
     @Autowired
-    MedCertSvc medCertSvc;
+    public MedCertController(MedCertSvc medCertSvc) {
+        this.medCertSvc = medCertSvc;
+    }
+
+//GET
 
     //TODO Убрать полную выборку
     @GetMapping("/GetAllMedCert")
@@ -28,6 +34,8 @@ public class MedCertController {
         return medCertSvc.getEmptyMedCertSvc();
 
     }
+
+//POST
 
     @PostMapping("/AddMedCert")
     public JSONObject addMedCertBirth(@RequestBody MedCert medCertPerinatalDeath)  {

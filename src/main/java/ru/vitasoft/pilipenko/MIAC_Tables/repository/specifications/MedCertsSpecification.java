@@ -4,18 +4,18 @@ import org.springframework.data.jpa.domain.Specification;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.MedCertBirth;
 import ru.vitasoft.pilipenko.MIAC_Tables.model.comparison.SearchElement;
 
-import javax.persistence.Convert;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
-import java.time.LocalDateTime;
-
-import static java.lang.Integer.parseInt;
+import javax.persistence.criteria.*;
 
 
 public class MedCertsSpecification {
+    private enum Operations{
+        EQUAL,
+        LIKE,
+        BETWEEN,
+        GREATER,
+        LESS,
+        START
+    }
 
     public static Specification<MedCertBirth> whereAndStart(){
         return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.and();
@@ -23,30 +23,34 @@ public class MedCertsSpecification {
 
     public static Specification<MedCertBirth> addSearchElement(final SearchElement searchElement){
 
-        return new Specification<MedCertBirth>() {
-            @Override
-            public Predicate toPredicate(Root<MedCertBirth> r, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+        return (Specification<MedCertBirth>) (root, criteriaQuery, criteriaBuilder) -> {
 
-                switch (searchElement.operation){
-                    case 1:
-                        return cb.equal(r.get(searchElement.propertyName),searchElement.comparisonValue1);
-                    case 2:
-                        return cb.like(r.get(searchElement.propertyName),"%" + searchElement.comparisonValue1.toString() + "%");
-                    case 3:
+            Expression path;
+            Operations curOperation;
 
-                        return cb.between(r.get(searchElement.propertyName),
-                                (Comparable) searchElement.comparisonValue1,
-                                (Comparable) searchElement.comparisonValue2);
+            if ("".equals(searchElement.parentPropertyName)){
+                path    = root.get(searchElement.propertyName);
+            }else{
+                path    = root.get(searchElement.parentPropertyName).get(searchElement.propertyName);
+            }
 
-                    case 4:
-                        return cb.greaterThanOrEqualTo(r.get(searchElement.propertyName),(Comparable) searchElement.comparisonValue1);
-                    case 5:
-                        return cb.lessThanOrEqualTo(r.get(searchElement.propertyName),(Comparable) searchElement.comparisonValue1);
-                    case 6:
-                        return cb.like(r.get(searchElement.propertyName), searchElement.comparisonValue1.toString() + "%");
-                    default:
-                        return cb.and();
-                }
+            curOperation = Operations.values()[searchElement.operation-1];
+
+            switch (curOperation){
+                case EQUAL:
+                    return criteriaBuilder.equal(path,searchElement.comparisonValue1);
+                case LIKE:
+                    return criteriaBuilder.like(path,"%" + searchElement.comparisonValue1.toString() + "%");
+                case BETWEEN:
+                    return criteriaBuilder.between(path, searchElement.comparisonValue1, searchElement.comparisonValue2);
+                case GREATER:
+                    return criteriaBuilder.greaterThanOrEqualTo(path,searchElement.comparisonValue1);
+                case LESS:
+                    return criteriaBuilder.lessThanOrEqualTo(path,searchElement.comparisonValue1);
+                case START:
+                    return criteriaBuilder.like(path, searchElement.comparisonValue1.toString() + "%");
+                default:
+                    return criteriaBuilder.and();
             }
         };
     }

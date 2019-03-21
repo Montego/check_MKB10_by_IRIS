@@ -1,6 +1,6 @@
 package ru.vitasoft.pilipenko.MIAC_Tables.controller;
 
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.BirthType;
@@ -111,7 +111,7 @@ public class TestController {
                 messageTest = "Error: User was not created. SQL error";
             }else{
                 messageTest = "Success: User was created. Id: " + newUser.getUserId().toString();
-            };
+            }
         }
 
         response.put("message", messageTest);
@@ -132,7 +132,7 @@ public class TestController {
             try {
                 testRepository.deleteById(Id);
             }catch (Exception e){
-                System.out.printf(e.getMessage());
+                System.out.print(e.getMessage());
                 errors = true;
             }
             if ((!errors) && testRepository.findByUserId(Id) == null) { //метод deleteById ничего не возвращает, поэтому приходится делать второй запрос чтобы проверить удалился ли объект

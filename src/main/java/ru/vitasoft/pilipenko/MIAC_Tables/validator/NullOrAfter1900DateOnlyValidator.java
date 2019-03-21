@@ -3,8 +3,6 @@ package ru.vitasoft.pilipenko.MIAC_Tables.validator;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 
 public class NullOrAfter1900DateOnlyValidator
         implements ConstraintValidator<NullOrAfter1900DateOnly, LocalDate> {

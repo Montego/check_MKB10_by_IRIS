@@ -1,17 +1,15 @@
 package ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.FamilyStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter

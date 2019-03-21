@@ -6,11 +6,18 @@ import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.MedCertDeath;
 import ru.vitasoft.pilipenko.MIAC_Tables.repository.model.MedCertDeathRepository;
 import org.json.simple.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class MedCertDeathSvc {
 
+    private final MedCertDeathRepository medCertDeathRepository;
+
     @Autowired
-    MedCertDeathRepository medCertDeathRepository;
+    public MedCertDeathSvc(MedCertDeathRepository medCertDeathRepository) {
+        this.medCertDeathRepository = medCertDeathRepository;
+    }
 
     public Iterable<MedCertDeath> medCertDeathFindAll() {
         return medCertDeathRepository.findAll();
@@ -18,16 +25,20 @@ public class MedCertDeathSvc {
 
     public JSONObject save(MedCertDeath medCertPerinatalDeath){
 
-        JSONObject response = new JSONObject();
+        JSONObject response;
+        Map<String,String> jsonMap = new HashMap<>();
+
         MedCertDeath respondFromServ;
 
         respondFromServ = medCertDeathRepository.save(medCertPerinatalDeath);
 
         if (respondFromServ != null){
-            response.put("message", "ok - id: " + respondFromServ.getId().toString());
-        }else{
-            response.put("message", "error");
+            jsonMap.put("message", "ok - id: " + respondFromServ.getId().toString());
+        } else {
+            jsonMap.put("message", "error");
         }
+
+        response = new JSONObject(jsonMap);
 
         return response;
 

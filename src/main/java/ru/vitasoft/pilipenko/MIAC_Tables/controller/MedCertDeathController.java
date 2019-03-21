@@ -10,8 +10,14 @@ import org.json.simple.JSONObject;
 @RequestMapping("/rest")
 public class MedCertDeathController {
 
+    private final MedCertDeathSvc medCertDeathSvc;
+
     @Autowired
-    MedCertDeathSvc medCertDeathSvc;
+    public MedCertDeathController(MedCertDeathSvc medCertDeathSvc) {
+        this.medCertDeathSvc = medCertDeathSvc;
+    }
+
+//GET
 
     //TODO Убрать полную выборку
     @GetMapping("/GetAllMedCertDeath")
@@ -27,6 +33,8 @@ public class MedCertDeathController {
         return medCertDeathSvc.getEmptyMedCertSvc();
 
     }
+
+//POST
 
     @PostMapping("/AddMedCertDeath")
     public JSONObject addMedCertDeath(@RequestBody MedCertDeath medCertPerinatalDeath)  {

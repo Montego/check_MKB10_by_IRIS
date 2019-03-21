@@ -4,13 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.MedCertPerinatalDeath;
 import ru.vitasoft.pilipenko.MIAC_Tables.repository.model.MedCertPerinatalDeathRepository;
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class MedCertPerinatalDeathSvc {
 
+    private final MedCertPerinatalDeathRepository medCertPerinatalDeathRepository;
+
     @Autowired
-    MedCertPerinatalDeathRepository medCertPerinatalDeathRepository;
+    public MedCertPerinatalDeathSvc(MedCertPerinatalDeathRepository medCertPerinatalDeathRepository) {
+        this.medCertPerinatalDeathRepository = medCertPerinatalDeathRepository;
+    }
 
     public MedCertPerinatalDeath getEmptyMedCertPerinatalSvc(){
 
@@ -24,20 +31,20 @@ public class MedCertPerinatalDeathSvc {
 
     public JSONObject save(MedCertPerinatalDeath medCertPerinatalDeath){
 
-        JSONObject response = new JSONObject();
+        JSONObject response;
+        Map<String,String> jsonMap = new HashMap<>();
         MedCertPerinatalDeath respondFromServ;
 
         respondFromServ = medCertPerinatalDeathRepository.save(medCertPerinatalDeath);
 
         if (respondFromServ != null){
-            response.put("message", "ok - id: " + respondFromServ.getId().toString());
+            jsonMap.put("message", "ok - id: " + respondFromServ.getId().toString());
         }else{
-            response.put("message", "error");
+            jsonMap.put("message", "error");
         }
+        response = new JSONObject(jsonMap);
 
         return response;
 
     }
-
-
 }
