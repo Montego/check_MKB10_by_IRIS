@@ -19,7 +19,7 @@ import javax.validation.constraints.Size;
 public class IdentityDoc {
     @PositiveOrZero
     @Id
-    private Integer identityDocId;
+    private Integer id;
     @NotNull
     @Size(max = 100)
     private String name;
@@ -27,7 +27,7 @@ public class IdentityDoc {
     //конструктор для информативного заполения JSON
     public IdentityDoc(Boolean defaultValues){
         if (defaultValues){
-            this.setIdentityDocId(-1);
+
             this.setName("");
         }
     }

@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
 public class MKB10 {
     @PositiveOrZero
     @Id
-    private Integer mkb10Id;
+    private Integer id;
     @NotNull
     @Size(max = 100)
     private String name;
@@ -28,7 +28,7 @@ public class MKB10 {
     //конструктор для информативного заполения JSON
     public MKB10(Boolean defaultValues){
         if (defaultValues){
-            this.setMkb10Id(-1);
+
             this.setName("");
         }
     }
