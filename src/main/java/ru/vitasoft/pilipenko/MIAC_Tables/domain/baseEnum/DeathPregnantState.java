@@ -15,8 +15,8 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "BE_certType")
-public class CertType {
+@Table(name = "BE_deathPregnantState")
+public class DeathPregnantState {
     @PositiveOrZero
     @Id
     private Integer id;

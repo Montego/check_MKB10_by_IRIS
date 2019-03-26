@@ -1,4 +1,4 @@
-package ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum;
+package ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +15,8 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "BE_certType")
-public class CertType {
+@Table(name = "D_identityDoc")
+public class IdentityDoc {
     @PositiveOrZero
     @Id
     private Integer id;
@@ -24,4 +24,11 @@ public class CertType {
     @Size(max = 100)
     private String name;
 
+    //конструктор для информативного заполения JSON
+    public IdentityDoc(Boolean defaultValues){
+        if (defaultValues){
+
+            this.setName("");
+        }
+    }
 }

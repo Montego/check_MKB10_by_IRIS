@@ -1,4 +1,4 @@
-package ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum;
+package ru.vitasoft.pilipenko.MIAC_Tables.domain.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,13 +15,15 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "BE_certType")
-public class CertType {
+@Table(name = "deathReason")
+public class DeathReason {
     @PositiveOrZero
     @Id
-    private Integer id;
-    @NotNull
-    @Size(max = 100)
-    private String name;
+    private Integer deathReasonId;
 
+    @NotNull
+    @Size(max = 50)
+    private String refType;
+
+    private Integer refId; //TODO возможно нужно указать NotNull
 }

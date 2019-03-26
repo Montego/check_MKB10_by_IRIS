@@ -4,33 +4,32 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "D_Mkb10")
+@Table(name = "D_mkb10")
 public class MKB10 {
-
-    @Positive
+    @PositiveOrZero
     @Id
-    private String mkbId; //STRING!
-
+    private Integer id;
     @NotNull
-    @Size(min = 1,max = 255)
+    @Size(max = 100)
     private String name;
 
     //конструктор для информативного заполения JSON
     public MKB10(Boolean defaultValues){
         if (defaultValues){
 
-            this.setMkbId("");
             this.setName("");
-
         }
     }
 }

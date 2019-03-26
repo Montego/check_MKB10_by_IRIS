@@ -7,10 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.DeathOccuredIn;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.DeathReasonsEstablishedBy;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.ReasonsForDeathEstablishing;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.Sex;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.*;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertDeath.DeathAccident;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertDeath.DeathLocation;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertDeath.RecordedDeathEmplType;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.*;
 import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900;
 import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900DateOnly;
@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "MedCertDeath")
+@Table(name = "medCert_d")
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class MedCertDeath {
 
@@ -41,19 +41,36 @@ public class MedCertDeath {
     @JoinColumn(name = "MedCertId")
     private MedCert medCertId;                      //FK
 
-    @Size(max = 255)
+    @Size(max = 50)
     private String bodyNumber;
 
-    @Size(max = 255)
+    @Size(max = 100)
     private String lastName;
-    @Size(max = 255)
+    @Size(max = 100)
     private String firstName;
-    @Size(max = 255)
+    @Size(max = 100)
     private String patronymicName;
 
-    @ManyToOne
-    @JoinColumn(name = "Sex")
-    private Sex sex;                                //enum
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "identDocTypeId")
+    private IdentityDoc identDocTypeId;                                //enum
+
+    @Size(max = 50)
+    private String identDocSeries;
+
+    @Size(max = 50)
+    private String identDocNumber;
+
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @JsonFormat(pattern = "dd.MM.yyyy")
+    private LocalDateTime identDocIssueDate;
+
+    @Size(max = 50)
+    private String identDocIssueBy;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "gender")
+    private Gender gender;                                //enum
 
     @NullOrAfter1900DateOnly
     @PastOrPresent
@@ -61,53 +78,87 @@ public class MedCertDeath {
     @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate birthDate;
 
+    private boolean birthDate_isYear;                       //
+
+    private boolean birthDate_isYearMonth;                  //
+
     @NullOrAfter1900
     @PastOrPresent
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private LocalDateTime deathDate;
 
-    @ManyToOne
-    @JoinColumn(name = "DeathResultedFrom")
-    private DeathReasons deathResultedFrom;         //enum ???
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "deathLocation")
+    private DeathLocation deathLocation;                    //enum
 
-    @ManyToOne
-    @JoinColumn(name = "DeathOccuredIn")
-    private DeathOccuredIn deathOccuredIn;          //enum
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "fetusType")
+    private FetusType fetusType;                            //enum
 
-    @ManyToOne
-    @JoinColumn(name = "DeathReasonsEstablishedBy")
-    private DeathReasonsEstablishedBy deathReasonsEstablishedBy;      //enum
+    @Size(max = 100)
+    private String motherLastName;                      //
+    @Size(max = 100)
+    private String motherFirstName;                     //
+    @Size(max = 100)
+    private String motherPatronymicName;                //
 
-    @ManyToOne
-    @JoinColumn(name = "ReasonsForDeathEstablishing")
-    private ReasonsForDeathEstablishing reasonsForDeathEstablishing;    //enum
+    @NullOrAfter1900DateOnly
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @JsonFormat(pattern = "dd.MM.yyyy")
+    private LocalDate motherBirthDate;                  //Дата
 
-    @ManyToOne
-    @JoinColumn(name = "FamilyStatusId")
-    private FamilyStatus familyStatusId;           //FK
+    @Positive
+    private Integer weight;                             //
 
-    @ManyToOne
-    @JoinColumn(name = "EduTypeId")
-    private EduType eduTypeId;                     //FK
+    @Positive
+    private Integer deathChildNumber;                    //
 
-    @ManyToOne
-    @JoinColumn(name = "MedicId")
-    private Medics medicId;                        //FK
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "familyStatus")
+    private FamilyStatus familyStatus;                  //enum
 
-    @ManyToOne
-    @JoinColumn(name = "OccupationId")
-    private Occupation occupationId;               //FK
 
-    @ManyToOne
-    @JoinColumn(name = "MedOrgId")
-    private MedOrg medOrgId;                       //FK
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "eduLevel")
+    private EduLevel eduLevel;                    //enum
 
-    @Min(1900)
-    private Integer birthYear;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "emplState")
+    private EmplState emplState;                  //enum
 
-    private Boolean birthDateNone;
-    private Boolean birthDateUnknown;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "deathAccident")
+    private DeathAccident deathAccident;          //enum
+
+    @NullOrAfter1900
+    @PastOrPresent
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
+    private LocalDateTime accidentDate;
+
+    @Size(max = 255)
+    private String accidentPlaceAndConditions;                      //
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "recordedDeathEmplType")
+    private RecordedDeathEmplType recordedDeathEmplType;            //enum
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "recordedDeathBased")
+    private RecordedDeathEmplType recordedDeathBased;               //enum
+
+    @Positive
+    private Integer medicId;                                        //
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "deathRoadAccidentState")
+    private DeathRoadAccidentState deathRoadAccidentState;               //enum
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "deathPregnantState")
+    private DeathPregnantState deathPregnantState;               //enum
+
 
     //конструктор для информативного заполения JSON
     public MedCertDeath(Boolean defaultValues) {
@@ -117,22 +168,9 @@ public class MedCertDeath {
             this.setBodyNumber("");
             this.setLastName("");
             this.setFirstName("");
-            this.setPatronymicName("");
-            this.setSex(new Sex(true));                                //enum
+            this.setPatronymicName("");//enum
             this.setBirthDate(LocalDate.parse("0001-01-01"));
             this.setDeathDate(LocalDateTime.parse("0001-01-01T00:00:00"));
-            this.setDeathResultedFrom(new DeathReasons(true));         //enum ???
-            this.setDeathOccuredIn(new DeathOccuredIn(true));          //enum
-            this.setDeathReasonsEstablishedBy(new DeathReasonsEstablishedBy(true));      //enum
-            this.setReasonsForDeathEstablishing(new ReasonsForDeathEstablishing(true));    //enum
-            this.setFamilyStatusId(new FamilyStatus(true));           //FK
-            this.setEduTypeId(new EduType(true));                     //FK
-            this.setMedicId(new Medics(true));                        //FK
-            this.setOccupationId(new Occupation(true));               //FK
-            this.setMedOrgId(new MedOrg(true));                       //FK
-            this.setBirthYear(-1);
-            this.setBirthDateNone(false);
-            this.setBirthDateUnknown(false);
         }
     }
 }
