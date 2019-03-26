@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -19,6 +20,7 @@ import javax.validation.constraints.Size;
 public class IdentityDoc {
     @PositiveOrZero
     @Id
+    @Column(name = "identityDocId")
     private Integer id;
     @NotNull
     @Size(max = 100)

@@ -1,3 +1,4 @@
+/*
 package ru.vitasoft.pilipenko.MIAC_Tables.model;
 
 import lombok.Getter;
@@ -19,3 +20,4 @@ public class TestUsers {
     private String  password;
     private Integer role;
 }
+*/

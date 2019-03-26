@@ -2,23 +2,21 @@ package ru.vitasoft.pilipenko.MIAC_Tables.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.*;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertBirth.AccoucheurType;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.*;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertBirth.AccoucheurTypeB;
 import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900;
 import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900DateOnly;
-import ru.vitasoft.pilipenko.MIAC_Tables.validator.YearBeforeThis;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -47,7 +45,7 @@ public class MedCertBirth {
     @NullOrAfter1900
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss")
-    private LocalDateTime childBirthTimeDate;           //Дата и время
+    private LocalDateTime childBirthDateTime;           //Дата и время
 
     @Size(max = 100)
     private String lastName;                            //
@@ -114,7 +112,7 @@ public class MedCertBirth {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "accoucheurType")
-    private AccoucheurType accoucheurType;              //enum
+    private AccoucheurTypeB accoucheurTypeB;              //enum
 
     @Positive
     private Integer certIssueByEmpl;                    //
@@ -135,7 +133,7 @@ public class MedCertBirth {
             this.setMotherPatronymicName("");                                       //
             this.setFirstAppearanceToDoctor(-1);                                    //
             this.setChildNumber(-1);                                                //
-            this.setChildBirthTimeDate(LocalDateTime.parse("0001-01-01T00:00:00")); //Дата и время
+            this.setChildBirthDateTime(LocalDateTime.parse("0001-01-01T00:00:00")); //Дата и время
             this.setMotherBirthDate(LocalDate.parse("0001-01-01"));                 //Дата
 
         }

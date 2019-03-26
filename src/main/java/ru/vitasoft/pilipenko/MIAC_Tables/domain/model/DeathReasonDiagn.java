@@ -6,11 +6,7 @@ import lombok.Setter;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.DiagnType;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.MKB10;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
@@ -24,9 +20,11 @@ public class DeathReasonDiagn {
     @Id
     private Integer deathReasonDiagnId;
 
+    @ManyToOne
     @JoinColumn(name = "deathReasonId")
     private DeathReason deathReasonId;
 
+    @ManyToOne
     @JoinColumn(name = "diagnType")
     private DiagnType diagnType;
 
@@ -46,6 +44,7 @@ public class DeathReasonDiagn {
     @PositiveOrZero
     private Integer timeUnknown; //TODO проверить поле
 
+    @ManyToOne
     @JoinColumn(name = "mkbId")
     private MKB10 mkbId;
 
