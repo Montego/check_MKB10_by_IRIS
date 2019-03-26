@@ -15,20 +15,13 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "BE_DiagnType")
+@Table(name = "BE_diagnType")
 public class DiagnType {
     @PositiveOrZero
     @Id
     private Integer id;
     @NotNull
-    @Size(min = 1)
+    @Size(max = 100)
     private String name;
 
-    //конструктор для информативного заполения JSON
-    public DiagnType(Boolean defaultValues){
-        if (defaultValues){
-            this.setId(-1);
-            this.setName("");
-        }
-    }
 }

@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.CertType;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.Recipient;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.IdentityDoc;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.Recepient;
 import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900DateOnly;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
-
-//TODO убрать каскадирование
+import java.time.LocalDateTime;
 
 @Entity
 @Cacheable(value = true)
@@ -23,7 +23,7 @@ import java.time.LocalDate;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "MedCertRepository")
+@Table(name = "medCert")
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class MedCert {
 
@@ -32,63 +32,74 @@ public class MedCert {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer medCertId;
 
-    @Positive
-    private Integer certSeries;
+    @Size(max = 50)
+    private String certSeries;
 
-    @Positive
-    private Integer certNumber;
+    @Size(max = 50)
+    private String certNumber;
 
     @PastOrPresent
     @NullOrAfter1900DateOnly
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     @JsonFormat(pattern = "dd.MM.yyyy")
-    //@JsonFormat(pattern = "dd.MM.yyyy'T'HH:mm:ss.SSS'Z'")
     private LocalDate certIssueDate;
 
-    @Size(max = 255)
-    private String certIssueByEmpl;
-    @Size(max = 50)
-    private String certStatus;
-
-    @ManyToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
-    @JoinColumn(name = "certType")
-    private CertType certType;                  //enum
-
     private Boolean isDuplicate;
-    @Size(max = 255)
+    private Boolean isPrivatePracticioner;
+
+    @Size(max = 50)
     private String privatePractitionerLicenceNumber;
-    @Size(max = 255)
-    private String privatePractitionerAddress;
-    @Size(max = 255)
-    private String filledOutMedCert;            //boolean?
-    @Size(max = 255)
-    private String headOfMedOrg;
 
-    @NotNull
-    @OneToOne(optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
-    @JoinColumn(name = "RecipientId")
-    private Recipient recipientId;              //FK
+    @Size(max = 50)
+    private String privatePractitionerAddress; //TODO 50 мало для адреса
 
-    @OneToOne
-    @JoinColumn(name = "PrevCertId")
-    private MedCert prevCertId;                 //FK //!ссылка на самого себя
+    @PositiveOrZero
+    private Integer resolutionBy; //TODO ссылка?
+
+    @Size(max = 50)
+    private String resolution;
+
+    @PositiveOrZero
+    private Integer medOrgId; //TODO ссылка?
+
+    @PositiveOrZero
+    private Integer filledOutMedCertId;
+
+    @PositiveOrZero
+    private Integer headOfMedOrgId;
+
+    @PositiveOrZero
+    private Integer checkedBy;
+
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @JsonFormat(pattern = "dd.MM.yyyy")
+    private LocalDateTime checkDate;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "certType")
+    private CertType certType;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "certStatus")
+    private CertType certStatus;
+
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "prevCertId")
+    private MedCert prevCertId;
 
     //конструктор для информативного заполения JSON
     public MedCert(Boolean defaultValues){
         if (defaultValues){
             this.setMedCertId(-1);
-            this.setCertSeries(-1);
-            this.setCertNumber(-1);
+            this.setCertSeries("");
+            this.setCertNumber("");
             this.setCertIssueDate(LocalDate.parse("0001-01-01"));
-            this.setCertIssueByEmpl("");
-            this.setCertStatus("");
-            this.setCertType(new CertType(true));
+            this.setCertStatus(null);
+            this.setCertType(null);
             this.setIsDuplicate(false);
             this.setPrivatePractitionerLicenceNumber("");
             this.setPrivatePractitionerAddress("");
-            this.setFilledOutMedCert("");
-            this.setHeadOfMedOrg("");
-            this.setRecipientId(new Recipient(true));
             this.setPrevCertId(null);
         }
     }

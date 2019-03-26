@@ -1,4 +1,4 @@
-package ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum;
+package ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertPerinatalDeath;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +15,8 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "BE_certType")
-public class CertType {
+@Table(name = "BE_recordedDeathEmplType_p")
+public class RecordedDeathEmplType {
     @PositiveOrZero
     @Id
     private Integer id;
