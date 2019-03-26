@@ -1,6 +1,7 @@
 package ru.vitasoft.pilipenko.MIAC_Tables.controller.dictionary;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +10,8 @@ import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.*;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.FIAS.*;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.Users.*;
 import ru.vitasoft.pilipenko.MIAC_Tables.services.dictionary.DictionarySvc;
+
+import javax.annotation.security.RolesAllowed;
 
 @RestController
 @RequestMapping("/Dictionary")

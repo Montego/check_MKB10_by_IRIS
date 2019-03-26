@@ -1,6 +1,11 @@
 package ru.vitasoft.pilipenko.MIAC_Tables.services.dictionary;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.*;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.*;
@@ -15,14 +20,11 @@ import ru.vitasoft.pilipenko.MIAC_Tables.repository.dictionary.Users.ExternalUse
 import ru.vitasoft.pilipenko.MIAC_Tables.repository.dictionary.Users.MiacUsersRepository;
 import ru.vitasoft.pilipenko.MIAC_Tables.repository.dictionary.Users.UsersRepository;
 
+import javax.annotation.security.RolesAllowed;
+
 
 @Service
 public class DictionarySvc {
-
-//region BaseEnums
-
-    private final
-    BirthTypeRepository birthTypeRepository;
 
     @Autowired
     public DictionarySvc(BirthTypeRepository birthTypeRepository, DeathReasonsEstablishedByRepository deathReasonsEstablishedByRepository, ChildBirthOccuredRepository childBirthOccuredRepository, CertTypeRepository certTypeRepository, WasBornFetusRepository wasBornFetusRepository, ActRecordsRepository actRecordsRepository, ExternalUsersRepository externalUsersRepository, MiacUsersRepository miacUsersRepository, DeathOccuredFromRepository deathOccuredFromRepository, CivilRegistryDepartmentsRepository civilRegistryDepartmentsRepository, DeathOccuredInRepository deathOccuredInRepository, FamilyStatusRepository familyStatusRepository, DeathReasonsEstablishedOnBasisOfRepository deathReasonsEstablishedOnBasisOfRepository, DeathResultedWhenRepository deathResultedWhenRepositoryRepository, FetusRepository fetusRepository, IssuedByMedicalAssistantRepository issuedByMedicalAssistantRepository, OccupationRepository occupationRepository, DeathReasonsRepository deathReasonsRepository, ReasonsForDeathEstablishingRepository reasonsForDeathEstablishingRepository, SurgeriesRepository surgeriesRepository, UsersRepository usersRepository, MKB10Repository mKB10Repository, CitiesRepository citiesRepository, SubjectsOfFederationRepository subjectsOfFederationRepository, EduTypeRepository eduTypeRepository, CountriesRepository countriesRepository, SexRepository sexRepository, DocTypeRepository docTypeRepository, MedOrgRepository medOrgRepository, PersonTookBirthRepository personTookBirthRepository, DistrictsRepository districtsRepository, DeathReasonsDiagRepository deathReasonsDiagRepository, AddressesRepository addressesRepository, RelationshipToChildRepository relationshipToChildRepository, MedicsRepository medicsRepository, LocalitiesRepository localitiesRepository, RecipientRepository recipientRepository) {
@@ -65,7 +67,16 @@ public class DictionarySvc {
         this.recipientRepository = recipientRepository;
     }
 
+//region BaseEnums
+
+    private final
+    BirthTypeRepository birthTypeRepository;
+
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@Secured("ROLE_RED_FLAG")
     public Iterable<BirthType> birthTypeFindAll() {
+//        UserDetails authentication = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        System.out.println("User has authorities: " + authentication.getAuthorities());
         return birthTypeRepository.findAll();
     }
 

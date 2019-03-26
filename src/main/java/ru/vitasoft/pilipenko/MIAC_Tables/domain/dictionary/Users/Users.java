@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -22,7 +23,9 @@ public class Users {
     private Integer userId;
 
     @Size(max = 255)
+    @Column(unique = true,nullable = false)
     private String email;
+
     @Size(max = 255)
     private String password;
 
