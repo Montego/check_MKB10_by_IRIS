@@ -8,15 +8,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.*;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertDeath.DeathAccident;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertDeath.DeathLocation;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertDeath.RecordedDeathEmplType;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.*;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertDeath.DeathAccidentD;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertDeath.DeathLocationD;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertDeath.RecordedDeathBasedD;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertDeath.RecordedDeathEmplTypeD;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertDeath.RecordedDeathEmplTypeD;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.IdentityDoc;
 import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900;
 import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900DateOnly;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -90,7 +95,7 @@ public class MedCertDeath {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "deathLocation")
-    private DeathLocation deathLocation;                    //enum
+    private DeathLocationD deathLocationD;                    //enum
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fetusType")
@@ -129,7 +134,7 @@ public class MedCertDeath {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "deathAccident")
-    private DeathAccident deathAccident;          //enum
+    private DeathAccidentD deathAccidentD;          //enum
 
     @NullOrAfter1900
     @PastOrPresent
@@ -142,11 +147,11 @@ public class MedCertDeath {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "recordedDeathEmplType")
-    private RecordedDeathEmplType recordedDeathEmplType;            //enum
+    private RecordedDeathEmplTypeD recordedDeathEmplTypeD;            //enum
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "recordedDeathBased")
-    private RecordedDeathEmplType recordedDeathBased;               //enum
+    private RecordedDeathBasedD recordedDeathBasedD;               //enum
 
     @Positive
     private Integer medicId;                                        //

@@ -9,7 +9,6 @@ import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.RelationshipType;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.IdentityDoc;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -23,9 +22,7 @@ public class Recepient {
     @PositiveOrZero
     @Id
     private Integer recepientId;
-    @NotNull
-    @Size(max = 100)
-    private String name;
+
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "medCertId")

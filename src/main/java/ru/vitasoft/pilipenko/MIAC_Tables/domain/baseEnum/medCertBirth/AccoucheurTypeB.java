@@ -1,10 +1,9 @@
-package ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary;
+package ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertBirth;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -16,21 +15,13 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "D_mkb10")
-public class MKB10 {
+@Table(name = "BE_accoucheurType_b")
+public class AccoucheurTypeB {
     @PositiveOrZero
     @Id
-    @Column(name = "mkb10id")
     private Integer id;
     @NotNull
     @Size(max = 100)
     private String name;
 
-    //конструктор для информативного заполения JSON
-    public MKB10(Boolean defaultValues){
-        if (defaultValues){
-
-            this.setName("");
-        }
-    }
 }

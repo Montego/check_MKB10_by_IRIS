@@ -9,11 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.*;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertBirth.AccoucheurType;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertPerinatalDeath.DeathAccident;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertPerinatalDeath.DeathLocation;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertPerinatalDeath.RecordedDeathBased;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertPerinatalDeath.RecordedDeathEmplType;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertPerinatalDeath.*;
+import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.medCertPerinatalDeath.AccoucheurTypeP;
 import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900;
 import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900DateOnly;
 
@@ -106,7 +103,7 @@ public class MedCertPerinatalDeath {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "deathLocation")
-    private DeathLocation deathLocation;                //enum
+    private DeathLocationP deathLocationP;                //enum
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "gender")
@@ -150,19 +147,19 @@ public class MedCertPerinatalDeath {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "deathAccident")
-    private DeathAccident deathAccident;                            //enum
+    private DeathAccidentP deathAccidentP;                            //enum
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "accoucheurType")
-    private AccoucheurType accoucheurType;                          //enum
+    private AccoucheurTypeP accoucheurTypeP;                          //enum
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "recordedDeathEmplType",insertable = false, updatable = false)
+    private RecordedDeathEmplTypeP recordedDeathEmplTypeP;            //enum
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "recordedDeathEmplType")
-    private RecordedDeathEmplType recordedDeathEmplType;            //enum
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "recordedDeathEmplType")
-    private RecordedDeathBased recordedDeathBased;                  //enum
+    private RecordedDeathBasedP recordedDeathBasedP;                  //enum
 
     //конструктор для информативного заполения JSON
     public MedCertPerinatalDeath(Boolean defaultValues) {
