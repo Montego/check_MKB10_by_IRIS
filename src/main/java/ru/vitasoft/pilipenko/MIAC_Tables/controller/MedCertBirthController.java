@@ -22,12 +22,6 @@ public class MedCertBirthController {
 
 //GET
 
-    //TODO Убрать полную выборку
-    @GetMapping("/getAllMedCertBirth")
-    public Iterable<MedCertBirth> getAllMedCertBirth(){
-        return medCertBirthSvc.medCertBirthFindAll();
-    }
-
     @GetMapping("/getEmptyMedCertBirth")
     public MedCertBirth getEmptyMedCertBirth(){
         return medCertBirthSvc.getEmptyMedCertBirthSvc();

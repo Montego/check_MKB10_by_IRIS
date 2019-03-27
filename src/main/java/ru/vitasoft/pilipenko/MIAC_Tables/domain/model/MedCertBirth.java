@@ -118,31 +118,31 @@ public class MedCertBirth {
     //конструктор для информативного заполения JSON
     public MedCertBirth(Boolean defaultValues) {
         if (defaultValues) {
-            this.setId(-1);                                 //
+            this.setId(null);                                 //
             this.setMedCertId(new MedCert(true));                          //mod
-            this.setChildBirthDateTime(LocalDateTime.parse("0001-01-01T00:00:00"));           //Дата и время
+            this.setChildBirthDateTime(null);           //Дата и время
             this.setLastName("");                            //
             this.setFirstName("");                           //
             this.setPatronymicName("");                      //
             this.setBirthLocation(null);                    //enum
             this.setGender(null);                           //enum
-            this.setWeight(-1);                             //
-            this.setLength(-1);                             //
+            this.setWeight(null);                             //
+            this.setLength(null);                             //
             this.setFertility(null);                        //enum
-            this.setChildBornNumber(-1);                    //
-            this.setTotalChildBornNumber(-1);               //
+            this.setChildBornNumber(null);                    //
+            this.setTotalChildBornNumber(null);               //
             this.setMotherLastName("");                      //
             this.setMotherFirstName("");                     //
             this.setMotherPatronymicName("");                //
-            this.setMotherBirthDate(LocalDate.parse("0001-01-01"));                  //Дата
+            this.setMotherBirthDate(null);                  //Дата
             this.setMotherBirthDate_isYear(false);             //
             this.setMotherFamilyStatus(null);               //enum
             this.setMotherEduLevel(null);                   //enum
             this.setMotherEmplState(null);                  //enum
-            this.setFirstAppearanceToDoctor(-1);            //
-            this.setChildNumber(-1);                        //
+            this.setFirstAppearanceToDoctor(null);            //
+            this.setChildNumber(null);                        //
             this.setAccoucheurTypeB(null);                  //enum
-            this.setCertIssueByEmpl(-1);
+            this.setCertIssueByEmpl(null);
         }
     }
 }

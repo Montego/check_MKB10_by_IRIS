@@ -20,27 +20,15 @@ public class MedCertController {
 
 //GET
 
-    //TODO Убрать полную выборку
-    @GetMapping("/getAllMedCert")
-    public Iterable<MedCert> getAllMedCert(){
-
-        return medCertSvc.medCertFindAll();
-
-    }
-
     @GetMapping("/getEmptyMedCert")
     public MedCert getEmptyMedCert(){
-
         return medCertSvc.getEmptyMedCertSvc();
-
     }
 
 //POST
 
     @PostMapping("/addMedCert")
     public JSONObject addMedCertBirth(@RequestBody MedCert medCertPerinatalDeath)  {
-
         return medCertSvc.save(medCertPerinatalDeath);
-
     }
 }

@@ -19,26 +19,16 @@ public class MedCertPerinatalDeathController {
 
 //GET
 
-    //TODO Убрать полную выборку
-    @GetMapping("/getAllMedCertPerinatalDeath")
-    public Iterable<MedCertPerinatalDeath> medCertPerinatalDeathFindAll() {
-        return medMedCertPerinatalDeath.medCertPerinatalDeathFindAll();
-    }
-
     @GetMapping("/getEmptyMedCertPerinatalDeath")
     public MedCertPerinatalDeath getEmptyMedCert(){
-
         return medMedCertPerinatalDeath.getEmptyMedCertPerinatalSvc();
-
     }
 
 //POST
 
     @PostMapping("/addMedCertPerinatalDeath")
     public JSONObject addMedCertPerinatalDeath(@RequestBody MedCertPerinatalDeath medCertPerinatalDeath)  {
-
         return medMedCertPerinatalDeath.save(medCertPerinatalDeath);
-
     }
 
 }

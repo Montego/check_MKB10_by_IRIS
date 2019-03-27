@@ -164,54 +164,45 @@ public class MedCertPerinatalDeath {
     //конструктор для информативного заполения JSON
     public MedCertPerinatalDeath(Boolean defaultValues) {
         if (defaultValues){
-            this.setId(-1);                                                         //
-            this.setMedCertId(new MedCert(true));                      //FK
 
-
-
-
-
-//
-//
-//            private Integer id(-1);                                     //
-//            private MedCert medCertId(new MedCert(true));                              //FK
-//            private String bodyNumber("");                              //
-//            private LocalDateTime deadFetusDateTime(LocalDateTime.parse("0001-01-01T00:00:00"));;                        //date time
-//            private LocalDateTime childBirthDateTime(LocalDateTime.parse("0001-01-01T00:00:00"));;                    //date time
-//            private LocalDateTime childDeathDateTime(LocalDateTime.parse("0001-01-01T00:00:00"));;                        //date time?
-//            private BirthRelatedDeathMoment birthRelatedDeathMoment(null);                                //enum
-//            private String motherLastName("");                      //
-//            private String motherFirstName("");                     //
-//            private String motherPatronymicName("");                //
-//            private LocalDate motherBirthDate;                  //Дата
-//            private boolean motherBirthDate_isYear(false);             //
-//            private boolean motherBirthDate_isYearMonth(false);        //
-//            private FamilyStatus motherFamilyStatus(null);          //enum
-//            private EduLevel motherEduLevel(null);                    //enum
-//            private EmplState motherEmplState(null);                  //enum
-//            private Integer motherBirthCount(-1);            //
-//            private String lastName("");                            //
-//            private String firstName("");                           //
-//            private String patronymicName("");                      //
-//            private DeathLocationP deathLocationP(null);                //enum
-//            private Gender gender(null);                              //enum
-//            private Integer weight(-1);                             //
-//            private Integer length(-1);                             //
-//            private Fertility fertility(null);                        //enum
-//            private Integer childBornNumber(-1);                        //
-//            private Integer totalChildBornNumber(-1);                        //
-//            private Integer deathChildNumber(-1);                        //
-//            private String actRecordEmployeeFirstName("");                      //
-//            private String actRecordEmployeeLastName("");                       //
-//            private String actRecordEmployeePatronymicName("");                 //
-//            private String actRecordNumber("");                                 //
-//            private LocalDate actRecordDate;                                //Дата
-//            private String registryDepartment("");                              //
-//            private DeathAccidentP deathAccidentP(null);                            //enum
-//            private AccoucheurTypeP accoucheurTypeP(null);                          //enum
-//            private RecordedDeathEmplTypeP recordedDeathEmplTypeP(null);            //enum
-//            private RecordedDeathBasedP recordedDeathBasedP(null);                  //enum
-
+            this.setId(-1);                                             //
+            this.setMedCertId(new MedCert(true));          //FK
+            this.setBodyNumber("");                                     //
+            this.setDeadFetusDateTime(LocalDateTime.parse("0001-01-01T00:00:00"));   //date time
+            this.setChildBirthDateTime(LocalDateTime.parse("0001-01-01T00:00:00"));  //date time
+            this.setChildDeathDateTime(LocalDateTime.parse("0001-01-01T00:00:00"));  //date time
+            this.setBirthRelatedDeathMoment(null);                      //enum
+            this.setMotherLastName("");                                 //
+            this.setMotherFirstName("");                                //
+            this.setMotherPatronymicName("");                           //
+            this.setMotherBirthDate(LocalDate.parse("0001-01-01"));     //Дата
+            this.setMotherBirthDate_isYear(false);                      //
+            this.setMotherBirthDate_isYearMonth(false);                 //
+            this.setMotherFamilyStatus(null);                           //enum
+            this.setMotherEduLevel(null);                               //enum
+            this.setMotherEmplState(null);                              //enum
+            this.setMotherBirthCount(-1);                               //
+            this.setLastName("");                                       //
+            this.setFirstName("");                                      //
+            this.setPatronymicName("");                                 //
+            this.setDeathLocationP(null);                               //enum
+            this.setGender(null);                                       //enum
+            this.setWeight(-1);                                         //
+            this.setLength(-1);                                         //
+            this.setFertility(null);                                    //enum
+            this.setChildBornNumber(-1);                                //
+            this.setTotalChildBornNumber(-1);                           //
+            this.setDeathChildNumber(-1);                               //
+            this.setActRecordEmployeeFirstName("");                     //
+            this.setActRecordEmployeeLastName("");                      //
+            this.setActRecordEmployeePatronymicName("");                //
+            this.setActRecordNumber("");                                //
+            this.setActRecordDate(LocalDate.parse("0001-01-01"));       //Дата
+            this.setRegistryDepartment("");                             //
+            this.setDeathAccidentP(null);                               //enum
+            this.setAccoucheurTypeP(null);                              //enum
+            this.setRecordedDeathEmplTypeP(null);                       //enum
+            this.setRecordedDeathBasedP(null);                          //enum
 
         }
     }

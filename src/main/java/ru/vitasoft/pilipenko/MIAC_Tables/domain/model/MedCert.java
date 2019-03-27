@@ -88,25 +88,25 @@ public class MedCert {
     //конструктор для информативного заполения JSON
     public MedCert(Boolean defaultValues){
         if (defaultValues){
-            this.setMedCertId(-1);
+            this.setMedCertId(null);
             this.setCertSeries("");
             this.setCertNumber("");
-            this.setCertIssueDate(LocalDate.parse("0001-01-01"));
+            this.setCertIssueDate(null);
             this.setCertStatus(null);
             this.setCertType(null);
             this.setIsDuplicate(false);
             this.setPrivatePractitionerLicenceNumber("");
             this.setPrivatePractitionerAddress("");
-            this.setPrevCertId(new MedCert(false));
+            this.setPrevCertId(null);
 
             this.setIsPrivatePracticioner(false);
-            this.setResolutionBy(-1);
+            this.setResolutionBy(null);
             this.setResolution("");
-            this.setMedOrgId(-1);
-            this.setFilledOutMedCertId(-1);
-            this.setHeadOfMedOrgId(-1);
-            this.setCheckedBy(-1);
-            this.setCheckDate(LocalDate.parse("0001-01-01"));
+            this.setMedOrgId(null);
+            this.setFilledOutMedCertId(null);
+            this.setHeadOfMedOrgId(null);
+            this.setCheckedBy(null);
+            this.setCheckDate(null);
             this.setCertType(null);
             this.setCertStatus(null);
         }
