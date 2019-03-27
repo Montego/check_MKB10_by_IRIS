@@ -38,7 +38,7 @@ public class MedCertPerinatalDeath {
     private Integer id;                                     //
 
     @NotNull
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER,optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "MedCertId")
     private MedCert medCertId;                              //FK
 
@@ -166,6 +166,52 @@ public class MedCertPerinatalDeath {
         if (defaultValues){
             this.setId(-1);                                                         //
             this.setMedCertId(new MedCert(true));                      //FK
+
+
+
+
+
+//
+//
+//            private Integer id(-1);                                     //
+//            private MedCert medCertId(new MedCert(true));                              //FK
+//            private String bodyNumber("");                              //
+//            private LocalDateTime deadFetusDateTime(LocalDateTime.parse("0001-01-01T00:00:00"));;                        //date time
+//            private LocalDateTime childBirthDateTime(LocalDateTime.parse("0001-01-01T00:00:00"));;                    //date time
+//            private LocalDateTime childDeathDateTime(LocalDateTime.parse("0001-01-01T00:00:00"));;                        //date time?
+//            private BirthRelatedDeathMoment birthRelatedDeathMoment(null);                                //enum
+//            private String motherLastName("");                      //
+//            private String motherFirstName("");                     //
+//            private String motherPatronymicName("");                //
+//            private LocalDate motherBirthDate;                  //Дата
+//            private boolean motherBirthDate_isYear(false);             //
+//            private boolean motherBirthDate_isYearMonth(false);        //
+//            private FamilyStatus motherFamilyStatus(null);          //enum
+//            private EduLevel motherEduLevel(null);                    //enum
+//            private EmplState motherEmplState(null);                  //enum
+//            private Integer motherBirthCount(-1);            //
+//            private String lastName("");                            //
+//            private String firstName("");                           //
+//            private String patronymicName("");                      //
+//            private DeathLocationP deathLocationP(null);                //enum
+//            private Gender gender(null);                              //enum
+//            private Integer weight(-1);                             //
+//            private Integer length(-1);                             //
+//            private Fertility fertility(null);                        //enum
+//            private Integer childBornNumber(-1);                        //
+//            private Integer totalChildBornNumber(-1);                        //
+//            private Integer deathChildNumber(-1);                        //
+//            private String actRecordEmployeeFirstName("");                      //
+//            private String actRecordEmployeeLastName("");                       //
+//            private String actRecordEmployeePatronymicName("");                 //
+//            private String actRecordNumber("");                                 //
+//            private LocalDate actRecordDate;                                //Дата
+//            private String registryDepartment("");                              //
+//            private DeathAccidentP deathAccidentP(null);                            //enum
+//            private AccoucheurTypeP accoucheurTypeP(null);                          //enum
+//            private RecordedDeathEmplTypeP recordedDeathEmplTypeP(null);            //enum
+//            private RecordedDeathBasedP recordedDeathBasedP(null);                  //enum
+
 
         }
     }

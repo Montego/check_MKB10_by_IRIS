@@ -43,6 +43,4 @@ public class MedCertController {
         return medCertSvc.save(medCertPerinatalDeath);
 
     }
-
-
 }

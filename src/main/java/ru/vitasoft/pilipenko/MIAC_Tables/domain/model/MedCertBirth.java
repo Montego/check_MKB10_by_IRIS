@@ -20,8 +20,6 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-//TODO в этом классе и связанных для всех ссылочных объектов было добавлено каскадирование, убрать его после проверки
-
 @Entity
 @Getter
 @Setter
@@ -38,7 +36,7 @@ public class MedCertBirth {
     private Integer Id;                                 //
 
     @NotNull
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER,optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "MedCertId")
     private MedCert medCertId;                          //mod
 
@@ -117,25 +115,34 @@ public class MedCertBirth {
     @Positive
     private Integer certIssueByEmpl;                    //
 
-
     //конструктор для информативного заполения JSON
     public MedCertBirth(Boolean defaultValues) {
         if (defaultValues) {
-            this.setId(-1);                                                         //
-            this.setMedCertId(new MedCert(true));                       //mod
-            this.setLastName("");                                                   //
-            this.setFirstName("");                                                  //
-            this.setPatronymicName("");                                             //
-            this.setWeight(-1);                                                     //
-            this.setLength(-1);                                                     //
-            this.setMotherLastName("");                                             //
-            this.setMotherFirstName("");                                            //
-            this.setMotherPatronymicName("");                                       //
-            this.setFirstAppearanceToDoctor(-1);                                    //
-            this.setChildNumber(-1);                                                //
-            this.setChildBirthDateTime(LocalDateTime.parse("0001-01-01T00:00:00")); //Дата и время
-            this.setMotherBirthDate(LocalDate.parse("0001-01-01"));                 //Дата
-
+            this.setId(-1);                                 //
+            this.setMedCertId(new MedCert(true));                          //mod
+            this.setChildBirthDateTime(LocalDateTime.parse("0001-01-01T00:00:00"));           //Дата и время
+            this.setLastName("");                            //
+            this.setFirstName("");                           //
+            this.setPatronymicName("");                      //
+            this.setBirthLocation(null);                    //enum
+            this.setGender(null);                           //enum
+            this.setWeight(-1);                             //
+            this.setLength(-1);                             //
+            this.setFertility(null);                        //enum
+            this.setChildBornNumber(-1);                    //
+            this.setTotalChildBornNumber(-1);               //
+            this.setMotherLastName("");                      //
+            this.setMotherFirstName("");                     //
+            this.setMotherPatronymicName("");                //
+            this.setMotherBirthDate(LocalDate.parse("0001-01-01"));                  //Дата
+            this.setMotherBirthDate_isYear(false);             //
+            this.setMotherFamilyStatus(null);               //enum
+            this.setMotherEduLevel(null);                   //enum
+            this.setMotherEmplState(null);                  //enum
+            this.setFirstAppearanceToDoctor(-1);            //
+            this.setChildNumber(-1);                        //
+            this.setAccoucheurTypeB(null);                  //enum
+            this.setCertIssueByEmpl(-1);
         }
     }
 }

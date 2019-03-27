@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
@@ -19,11 +17,19 @@ import javax.validation.constraints.Size;
 public class DeathReason {
     @PositiveOrZero
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer deathReasonId;
 
     @NotNull
     @Size(max = 50)
     private String refType;
-
     private Integer refId; //TODO возможно нужно указать NotNull
+
+    public DeathReason(Boolean defaultValues){
+        if (defaultValues) {
+            this.setDeathReasonId(-1);
+            this.setRefType("");
+            this.setRefId(-1);
+        }
+    }
 }

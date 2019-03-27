@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 public class Surgery {
     @PositiveOrZero
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer surgeryId;
 
     @NotNull
@@ -28,9 +30,19 @@ public class Surgery {
 
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDateTime date;
+    private LocalDate date;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER,optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "deathReasonId")
     private DeathReason deathReasonId;
+
+    //конструктор для информативного заполения JSON
+    public Surgery(Boolean defaultValues){
+        if (defaultValues){
+            surgeryId = -1;
+            name = "";
+            date = LocalDate.parse("0001-01-01");;
+            deathReasonId = (new DeathReason(true));
+        }
+    }
 }

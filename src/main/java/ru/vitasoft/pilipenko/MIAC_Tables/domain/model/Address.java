@@ -7,7 +7,6 @@ import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.AddressType;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.Locality;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
@@ -19,6 +18,7 @@ import javax.validation.constraints.Size;
 public class Address {
     @PositiveOrZero
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer addressId;
 
     private String refType;
@@ -36,4 +36,15 @@ public class Address {
 
     private Integer refId;//TODO возможно нужно указать NotNull
 
+    //конструктор для информативного заполения JSON
+    public Address(Boolean defaultValues){
+        if (defaultValues){
+            this.addressId      = -1;
+            this.refType        = "";
+            this.addressType    = null;
+            this.locality       = null;
+            this.description    = "";
+            this.refId          = -1;
+        }
+    }
 }

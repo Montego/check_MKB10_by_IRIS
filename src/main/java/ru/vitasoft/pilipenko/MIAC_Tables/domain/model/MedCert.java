@@ -8,14 +8,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.vitasoft.pilipenko.MIAC_Tables.domain.baseEnum.CertType;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.IdentityDoc;
-import ru.vitasoft.pilipenko.MIAC_Tables.domain.model.Recepient;
 import ru.vitasoft.pilipenko.MIAC_Tables.validator.NullOrAfter1900DateOnly;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Cacheable(value = true)
@@ -27,7 +24,7 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class MedCert {
 
-    @Positive
+    @PositiveOrZero
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer medCertId;
@@ -73,7 +70,7 @@ public class MedCert {
 
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDateTime checkDate;
+    private LocalDate checkDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "certType")
@@ -100,7 +97,18 @@ public class MedCert {
             this.setIsDuplicate(false);
             this.setPrivatePractitionerLicenceNumber("");
             this.setPrivatePractitionerAddress("");
-            this.setPrevCertId(null);
+            this.setPrevCertId(new MedCert(false));
+
+            this.setIsPrivatePracticioner(false);
+            this.setResolutionBy(-1);
+            this.setResolution("");
+            this.setMedOrgId(-1);
+            this.setFilledOutMedCertId(-1);
+            this.setHeadOfMedOrgId(-1);
+            this.setCheckedBy(-1);
+            this.setCheckDate(LocalDate.parse("0001-01-01"));
+            this.setCertType(null);
+            this.setCertStatus(null);
         }
     }
 }

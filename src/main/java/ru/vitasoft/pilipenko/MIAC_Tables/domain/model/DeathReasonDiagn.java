@@ -18,9 +18,10 @@ import javax.validation.constraints.Size;
 public class DeathReasonDiagn {
     @PositiveOrZero
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer deathReasonDiagnId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER,optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "deathReasonId")
     private DeathReason deathReasonId;
 
@@ -47,5 +48,24 @@ public class DeathReasonDiagn {
     @ManyToOne
     @JoinColumn(name = "mkbId")
     private MKB10 mkbId;
+
+    //конструктор для информативного заполения JSON
+    public DeathReasonDiagn(Boolean defaultValues){
+        if (defaultValues){
+            deathReasonDiagnId = -1;
+
+            deathReasonId = new DeathReason(true);
+            diagnType = null;
+            description = "";
+            years = -1;
+            months = -1;
+            days = -1;
+            hours = -1;
+            minutes = -1;
+            timeUnknown = -1; //TODO проверить поле
+
+            mkbId = null;
+        }
+    }
 
 }

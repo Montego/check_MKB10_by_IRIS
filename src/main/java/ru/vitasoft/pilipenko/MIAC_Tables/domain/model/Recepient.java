@@ -11,6 +11,7 @@ import ru.vitasoft.pilipenko.MIAC_Tables.domain.dictionary.IdentityDoc;
 import javax.persistence.*;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,10 +22,11 @@ import java.time.LocalDateTime;
 public class Recepient {
     @PositiveOrZero
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer recepientId;
 
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER,optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "medCertId")
     private MedCert medCertId;
 
@@ -49,7 +51,7 @@ public class Recepient {
 
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     @JsonFormat(pattern = "dd.MM.yyyy")
-    private LocalDateTime identDocIssueDate;
+    private LocalDate identDocIssueDate;
 
     @Size(max = 50)
     private String identDocIssueBy;
@@ -58,4 +60,20 @@ public class Recepient {
     @JoinColumn(name = "relationshipType")
     private RelationshipType relationshipType;
 
+    //конструктор для информативного заполения JSON
+    public Recepient(Boolean defaultValues){
+        if (defaultValues){
+            this.recepientId = -1;
+            this.medCertId = new MedCert(true);
+            this.lastName = "";
+            this.firstName = "";
+            this.patronymicName = "";
+            this.identDocTypeId = null;
+            this.identDocSeries = "";
+            this.identDocNumber = "";
+            this.identDocIssueDate = LocalDate.parse("0001-01-01");
+            this.identDocIssueBy = "";
+            this.relationshipType = null;
+        }
+    }
 }
