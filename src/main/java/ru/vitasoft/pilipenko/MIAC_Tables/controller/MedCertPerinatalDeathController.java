@@ -20,12 +20,12 @@ public class MedCertPerinatalDeathController {
 //GET
 
     //TODO Убрать полную выборку
-    @GetMapping("/GetAllMedCertPerinatalDeath")
+    @GetMapping("/getAllMedCertPerinatalDeath")
     public Iterable<MedCertPerinatalDeath> medCertPerinatalDeathFindAll() {
         return medMedCertPerinatalDeath.medCertPerinatalDeathFindAll();
     }
 
-    @GetMapping("/GetEmptyMedCertPerinatalDeath")
+    @GetMapping("/getEmptyMedCertPerinatalDeath")
     public MedCertPerinatalDeath getEmptyMedCert(){
 
         return medMedCertPerinatalDeath.getEmptyMedCertPerinatalSvc();
@@ -34,7 +34,7 @@ public class MedCertPerinatalDeathController {
 
 //POST
 
-    @PostMapping("/AddMedCertPerinatalDeath")
+    @PostMapping("/addMedCertPerinatalDeath")
     public JSONObject addMedCertPerinatalDeath(@RequestBody MedCertPerinatalDeath medCertPerinatalDeath)  {
 
         return medMedCertPerinatalDeath.save(medCertPerinatalDeath);

@@ -23,19 +23,19 @@ public class MedCertBirthController {
 //GET
 
     //TODO Убрать полную выборку
-    @GetMapping("/GetAllMedCertBirth")
+    @GetMapping("/getAllMedCertBirth")
     public Iterable<MedCertBirth> getAllMedCertBirth(){
         return medCertBirthSvc.medCertBirthFindAll();
     }
 
-    @GetMapping("/GetEmptyMedCertBirth")
+    @GetMapping("/getEmptyMedCertBirth")
     public MedCertBirth getEmptyMedCertBirth(){
         return medCertBirthSvc.getEmptyMedCertBirthSvc();
     }
 
 //POST
 
-    @PostMapping("/AddMedCertBirth")
+    @PostMapping("/addMedCertBirth")
     public JSONObject addMedCertBirth(@RequestBody MedCertBirth medCertBirth)  {
         return medCertBirthSvc.save(medCertBirth);
     }
@@ -47,7 +47,7 @@ public class MedCertBirthController {
      *               он не будет участвовать в фильтрации
      * @return Iterable<MedCertBirth> - возвращает список свидетельств подходящих по описанию
      */
-    @PostMapping("/SearchMedCertBirth")
+    @PostMapping("/searchMedCertBirth")
     public Iterable<MedCertBirth> getMedCertBirth(@RequestBody SearchParams params) {
         return medCertBirthSvc.getMedCertBirth(params);
     }
