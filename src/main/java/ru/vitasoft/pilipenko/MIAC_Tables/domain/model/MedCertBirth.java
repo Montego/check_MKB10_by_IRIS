@@ -38,7 +38,7 @@ public class MedCertBirth {
     @NotNull
     @OneToOne(fetch = FetchType.EAGER,optional = false, cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name = "MedCertId")
-    private MedCert medCertId;                          //mod
+    private MedCert medCert;                          //mod
 
     @NullOrAfter1900
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
@@ -119,7 +119,7 @@ public class MedCertBirth {
     public MedCertBirth(Boolean defaultValues) {
         if (defaultValues) {
             this.setId(null);                                 //
-            this.setMedCertId(new MedCert(true));                          //mod
+            this.setMedCert(new MedCert(true));                          //mod
             this.setChildBirthDateTime(null);           //Дата и время
             this.setLastName("");                            //
             this.setFirstName("");                           //

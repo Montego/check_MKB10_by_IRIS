@@ -39,12 +39,12 @@ public class Address {
     //конструктор для информативного заполения JSON
     public Address(Boolean defaultValues){
         if (defaultValues){
-            this.addressId      = -1;
+            this.addressId      = null;
             this.refType        = "";
             this.addressType    = null;
             this.locality       = null;
             this.description    = "";
-            this.refId          = -1;
+            this.refId          = null;
         }
     }
 }

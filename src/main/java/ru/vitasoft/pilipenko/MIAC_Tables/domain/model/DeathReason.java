@@ -27,9 +27,9 @@ public class DeathReason {
 
     public DeathReason(Boolean defaultValues){
         if (defaultValues) {
-            this.setDeathReasonId(-1);
+            this.setDeathReasonId(null);
             this.setRefType("");
-            this.setRefId(-1);
+            this.setRefId(null);
         }
     }
 }

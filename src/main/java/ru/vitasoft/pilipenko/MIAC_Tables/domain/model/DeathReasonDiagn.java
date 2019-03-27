@@ -52,17 +52,17 @@ public class DeathReasonDiagn {
     //конструктор для информативного заполения JSON
     public DeathReasonDiagn(Boolean defaultValues){
         if (defaultValues){
-            deathReasonDiagnId = -1;
+            deathReasonDiagnId = null;
 
             deathReasonId = new DeathReason(true);
             diagnType = null;
             description = "";
-            years = -1;
-            months = -1;
-            days = -1;
-            hours = -1;
-            minutes = -1;
-            timeUnknown = -1; //TODO проверить поле
+            years = null;
+            months = null;
+            days = null;
+            hours = null;
+            minutes = null;
+            timeUnknown = null; //TODO проверить поле
 
             mkbId = null;
         }
