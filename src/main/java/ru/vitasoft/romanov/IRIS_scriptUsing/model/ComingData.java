@@ -1,4 +1,4 @@
-package ru.vitasoft.pilipenko.MIAC_Tables.model;
+package ru.vitasoft.romanov.IRIS_scriptUsing.model;
 
 import lombok.Data;
 

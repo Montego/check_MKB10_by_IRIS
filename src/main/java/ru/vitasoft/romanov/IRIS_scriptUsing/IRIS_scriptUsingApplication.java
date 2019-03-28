@@ -1,13 +1,13 @@
-package ru.vitasoft.pilipenko.MIAC_Tables;
+package ru.vitasoft.romanov.IRIS_scriptUsing;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TestTask1Application {
+public class IRIS_scriptUsingApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TestTask1Application.class, args);
+		SpringApplication.run(IRIS_scriptUsingApplication.class, args);
 	}
 
 }

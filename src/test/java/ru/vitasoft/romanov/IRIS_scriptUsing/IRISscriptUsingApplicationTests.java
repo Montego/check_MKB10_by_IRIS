@@ -1,4 +1,4 @@
-package ru.vitasoft.pilipenko.MIAC_Tables;
+package ru.vitasoft.romanov.IRIS_scriptUsing;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TestTask1ApplicationTests {
+public class IRISscriptUsingApplicationTests {
 
 	@Test
 	public void contextLoads() {

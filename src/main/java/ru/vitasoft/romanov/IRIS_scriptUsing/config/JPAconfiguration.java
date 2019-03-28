@@ -1,4 +1,4 @@
-package ru.vitasoft.pilipenko.MIAC_Tables.config;
+package ru.vitasoft.romanov.IRIS_scriptUsing.config;
 
 import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,14 +12,14 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
-import ru.vitasoft.pilipenko.MIAC_Tables.TestTask1Application;
+import ru.vitasoft.romanov.IRIS_scriptUsing.IRIS_scriptUsingApplication;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackageClasses = TestTask1Application.class)
+@EnableJpaRepositories(basePackageClasses = IRIS_scriptUsingApplication.class)
 public class JPAconfiguration implements TransactionManagementConfigurer {
     @Value("${dataSource.driverClassName}")
     private String driver;
@@ -51,7 +51,7 @@ public class JPAconfiguration implements TransactionManagementConfigurer {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(configureDataSource());
-        entityManagerFactoryBean.setPackagesToScan("ru.vitasoft.pilipenko");
+        entityManagerFactoryBean.setPackagesToScan("ru.vitasoft.romanov");
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
         Properties jpaProperties = new Properties();

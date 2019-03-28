@@ -1,16 +1,11 @@
-package ru.vitasoft.pilipenko.MIAC_Tables.controller;
-
-//import com.listenerexe.listener.Service.DBService;
-
+package ru.vitasoft.romanov.IRIS_scriptUsing.controller;
 
 import org.springframework.web.bind.annotation.*;
-import ru.vitasoft.pilipenko.MIAC_Tables.model.Answer;
-import ru.vitasoft.pilipenko.MIAC_Tables.model.ComingData;
-import ru.vitasoft.pilipenko.MIAC_Tables.service.ListenerService;
-import ru.vitasoft.pilipenko.MIAC_Tables.service.TestMedCodService;
+import ru.vitasoft.romanov.IRIS_scriptUsing.model.Answer;
+import ru.vitasoft.romanov.IRIS_scriptUsing.model.ComingData;
+import ru.vitasoft.romanov.IRIS_scriptUsing.service.ListenerService;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
 //import com.listenerexe.listener.entity.Listener;
@@ -20,31 +15,22 @@ import java.util.concurrent.TimeUnit;
 public class ListenerController {
 
     private final ListenerService listenerService;
-//    private final DBService dbService;
-    private final TestMedCodService testMedCodService;
 
-    public ListenerController(ListenerService listenerService, TestMedCodService testMedCodService) {
+    public ListenerController(ListenerService listenerService) {
         this.listenerService = listenerService;
 
-        this.testMedCodService = testMedCodService;
     }
 
     @PostMapping("/add")
     public void add(@RequestBody ComingData comingData) {
-         testMedCodService.addToCurrentTable(comingData);
-//        dbService.addInfoToCurrentTable(s, comingData);
-//        dbService.closeConnection(s);
+         listenerService.addToCurrentTable(comingData);
     }
 
 
-    @GetMapping("/addSomeShit")
-    public void createLine(){
-        testMedCodService.createLine();
-    }
-    @GetMapping("/del")
-    public void del(){
-       testMedCodService.deleteAllFromCurrentTable();
-    }
+//    @GetMapping("/del")
+//    public void del(){
+//       testMedCodService.deleteAllFromCurrentTable();
+//    }
 
     @GetMapping("/startScript")
     public void startScripting() throws InterruptedException, IOException {
@@ -105,24 +91,38 @@ public class ListenerController {
     @PostMapping("/send")
     public Answer send(@RequestBody ComingData comingData) throws IOException, InterruptedException {
 //        listenerService.deleteLog();
-        testMedCodService.deleteAllFromCurrentTable();
+//        testMedCodService.deleteAllFromCurrentTable();
+//        listenerService.deleteAllFromCurrentTable();
         System.out.println("delete DB from controller");
-        testMedCodService.addToCurrentTable(comingData);
+//        testMedCodService.addToCurrentTable(comingData);
+        listenerService.addToCurrentTable(comingData);
         System.out.println("add to DB from controller");
         listenerService.startScript();
         System.out.println("start script from controller");
-        TimeUnit.SECONDS.sleep(3);
-        Answer answer;
-        answer=listenerService.readLog();
-        if(listenerService.fileIsExist()){
-            answer=listenerService.readLog();
-            listenerService.closeScript();
+        TimeUnit.SECONDS.sleep(1);
+        if(!listenerService.isFileExist()){
+            TimeUnit.SECONDS.sleep(2);
         }
-        //        TimeUnit.SECONDS.sleep(3);
-        testMedCodService.deleteAllFromCurrentTable();
+        if(!listenerService.isFileExist()){
+            TimeUnit.SECONDS.sleep(1);
+        }
+        if(!listenerService.isFileExist()){
+            TimeUnit.SECONDS.sleep(1);
+        }
+        if(!listenerService.isFileExist()){
+            TimeUnit.SECONDS.sleep(1);
+        }
+        if(!listenerService.isFileExist()){
+            TimeUnit.SECONDS.sleep(1);
+        }
+
+//        TimeUnit.SECONDS.sleep(3);
+
+//        answer=listenerService.readLog();
+//        testMedCodService.deleteAllFromCurrentTable();
+        listenerService.deleteAllFromCurrentTable();
         System.out.println("delete DB from controller after all");
-//        listenerService.deleteLog();
         listenerService.closeScript();
-        return answer;
+        return listenerService.doMagicPlease();
     }
 }

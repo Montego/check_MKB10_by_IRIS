@@ -1,4 +1,4 @@
-package ru.vitasoft.pilipenko.MIAC_Tables.model;
+package ru.vitasoft.romanov.IRIS_scriptUsing.model;
 
 import lombok.Data;
 
@@ -8,12 +8,14 @@ import javax.persistence.Id;
 
 @Data
 //@Entity
-public class Answer {
+public class Mkb10 {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
-    String status = "Unchecked";
-
-    String textAnswer;
+    String a;
+    String b;
+    String c;
+    String d;
 }
