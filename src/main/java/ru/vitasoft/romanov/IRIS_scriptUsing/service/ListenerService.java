@@ -4,19 +4,22 @@ package ru.vitasoft.romanov.IRIS_scriptUsing.service;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.vitasoft.romanov.IRIS_scriptUsing.model.Answer;
 import ru.vitasoft.romanov.IRIS_scriptUsing.model.ComingData;
+import ru.vitasoft.romanov.IRIS_scriptUsing.model.Log;
 import ru.vitasoft.romanov.IRIS_scriptUsing.model.TestMedCod;
 import ru.vitasoft.romanov.IRIS_scriptUsing.repository.TestMedCodRepository;
-import ru.vitasoft.romanov.IRIS_scriptUsing.model.Answer;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 //import com.listenerexe.listener.entity.Listener;
 
@@ -24,6 +27,8 @@ import java.util.List;
 public class ListenerService {
     @Autowired
     TestMedCodRepository testMedCodRepository;
+//    @Autowired
+//    LogRepository logRepository;
 
     private String directory = "C:/Program Files (x86)/Iris5.6.0/";
     private String nameIrisScript = "autoit_iris-2.exe";
@@ -37,12 +42,11 @@ public class ListenerService {
     Process process;
 
     //=====================================Script methods==================================================
-    public void startScript() throws IOException {
+    public void startScript(){
         {
             try {
                 builder.directory(new File(directory));
                 process = builder.start();
-
                 System.out.println("process is starting");
                 answer.setStatus("pending");
             } catch (IOException e) {
@@ -58,12 +62,12 @@ public class ListenerService {
 
     //=====================================File methods==================================================
 
-    public boolean isFileExist(){
+    public boolean isFileExist() {
         return file.exists();
     }
 
-    public Answer doMagicPlease() throws IOException, InterruptedException {
-
+    public Answer doMagicPlease(ComingData comingData) throws IOException, InterruptedException {
+        answer.setId(comingData.getId());
         System.out.println(file.getName());
         System.out.println("Is file for reading exist?: " + file.exists());
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -84,7 +88,7 @@ public class ListenerService {
             System.out.println(directory + nameReadingTxt + " was delete");
         } else
             System.out.println(directory + nameReadingTxt + " not found for delete");
-//        closeScript();
+        closeScript();
         return answer;
     }
 
@@ -140,5 +144,19 @@ public class ListenerService {
         } else
             System.out.println(directory + nameReadingTxt + " not found for delete");
         file.deleteOnExit();
+    }
+
+    public void saveAllInfoAboutWorking(ComingData comingData, Answer answer) {
+        String certificateKey = "000001";
+        Log log = new Log();
+        LocalDate today = LocalDate.now();
+        log.setDateTime(today);
+        log.setCertificateKey(certificateKey);
+        log.setCodeOne(comingData.getMkb10().getA());
+        log.setCodeTwo(comingData.getMkb10().getB());
+        log.setCodeThree(comingData.getMkb10().getC());
+        log.setCodeFour(comingData.getMkb10().getD());
+        log.setStatus(answer.getStatus());
+        log.setLogText(answer.getTextAnswer());
     }
 }

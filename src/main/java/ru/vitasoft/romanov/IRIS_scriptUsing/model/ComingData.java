@@ -9,7 +9,6 @@ import javax.persistence.ManyToOne;
 import java.sql.Timestamp;
 
 @Data
-//@Entity
 public class ComingData {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
