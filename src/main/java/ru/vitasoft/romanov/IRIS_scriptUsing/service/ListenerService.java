@@ -66,7 +66,7 @@ public class ListenerService {
         return file.exists();
     }
 
-    public Answer doMagicPlease(ComingData comingData) throws IOException, InterruptedException {
+    public Answer readFile(ComingData comingData) throws IOException {
         answer.setId(comingData.getId());
         System.out.println(file.getName());
         System.out.println("Is file for reading exist?: " + file.exists());
@@ -83,14 +83,42 @@ public class ListenerService {
             answer.setTextAnswer(r);
         }
         br.close();
-
-        if (file.delete()) {
-            System.out.println(directory + nameReadingTxt + " was delete");
-        } else
-            System.out.println(directory + nameReadingTxt + " not found for delete");
-        closeScript();
         return answer;
     }
+    public void deleteFile(){
+        if (file.delete()) {
+                System.out.println(directory + nameReadingTxt + " was delete");
+            } else
+                System.out.println(directory + nameReadingTxt + " not found for delete");
+    }
+
+
+//    public Answer doMagicPlease(ComingData comingData) throws IOException, InterruptedException {
+//        answer.setId(comingData.getId());
+//        System.out.println(file.getName());
+//        System.out.println("Is file for reading exist?: " + file.exists());
+//        BufferedReader br = new BufferedReader(new FileReader(file));
+//        String st;
+//
+//            StringBuilder s = new StringBuilder();
+//            while ((st = br.readLine()) != null) {
+//                s.append(st.replaceAll("[\u0000-\u001f &\ufffd]", ""));
+//                System.out.println(st);
+//                String r = s.toString();
+//                r = StringUtils.substringBetween(r, "Start", "UC");
+//                answer.setStatus("checked");
+//                answer.setTextAnswer(r);
+//            }
+//            br.close();
+//          TimeUnit.SECONDS.sleep(2);
+//            if (file.delete()) {
+//                System.out.println(directory + nameReadingTxt + " was delete");
+//            } else
+//                System.out.println(directory + nameReadingTxt + " not found for delete");
+//            closeScript();
+////        closeScript();
+//        return answer;
+//    }
 
     //=====================================DataBase methods==================================================
     public void deleteAllFromCurrentTable() {
@@ -158,5 +186,10 @@ public class ListenerService {
         log.setCodeFour(comingData.getMkb10().getD());
         log.setStatus(answer.getStatus());
         log.setLogText(answer.getTextAnswer());
+//        logRepository.save(log);
+    }
+
+    public String areYouAlive(){
+        return new String("I'm alive");
     }
 }

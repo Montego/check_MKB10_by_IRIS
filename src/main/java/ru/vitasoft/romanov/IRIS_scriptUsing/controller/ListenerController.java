@@ -45,12 +45,18 @@ public class ListenerController {
     public void delLogs() {
         listenerService.deleteLog();
     }
+    @GetMapping("/alive")
+    public String areYouAlive(){
+        return listenerService.areYouAlive();
+    }
 
     @PostMapping("/send")
     public Answer send(@RequestBody ComingData comingData) throws IOException, InterruptedException {
 //        listenerService.deleteLog();
 //        testMedCodService.deleteAllFromCurrentTable();
-//        listenerService.deleteAllFromCurrentTable();
+
+//        listenerService.deleteFile();
+        listenerService.deleteAllFromCurrentTable();
         System.out.println("delete DB from controller");
 //        testMedCodService.addToCurrentTable(comingData);
         listenerService.addToCurrentTable(comingData);
@@ -58,7 +64,7 @@ public class ListenerController {
         listenerService.startScript();
         System.out.println("start script from controller");
         TimeUnit.SECONDS.sleep(1);
-        for (int i = 0; i <6 ; i++) {
+        for (int i = 0; i <3 ; i++) {
             if (!listenerService.isFileExist()){
                 TimeUnit.SECONDS.sleep(2);
             }else{
@@ -66,15 +72,12 @@ public class ListenerController {
             }
         }
 
-//        TimeUnit.SECONDS.sleep(3);
-        listenerService.deleteAllFromCurrentTable();
-        System.out.println("delete DB from controller after all");
-//        listenerService.closeScript();
-
         //for create Log table
         Answer answer;
-        answer = listenerService.doMagicPlease(comingData);
+        answer = listenerService.readFile(comingData);
+//        answer = listenerService.doMagicPlease(comingData);
 //        listenerService.saveAllInfoAboutWorking(comingData,answer);
+        listenerService.closeScript();
 
         return answer;
     }
