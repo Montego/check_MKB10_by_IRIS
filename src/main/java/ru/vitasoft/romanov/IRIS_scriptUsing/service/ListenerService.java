@@ -66,13 +66,11 @@ public class ListenerService {
         return file.exists();
     }
 
-    public Answer readFile(ComingData comingData) throws IOException {
-        answer.setId(comingData.getId());
-        System.out.println(file.getName());
+    public void read() throws IOException {
+//        answer.setId(id);
         System.out.println("Is file for reading exist?: " + file.exists());
         BufferedReader br = new BufferedReader(new FileReader(file));
         String st;
-
         StringBuilder s = new StringBuilder();
         while ((st = br.readLine()) != null) {
             s.append(st.replaceAll("[\u0000-\u001f &\ufffd]", ""));
@@ -83,6 +81,26 @@ public class ListenerService {
             answer.setTextAnswer(r);
         }
         br.close();
+    }
+
+    public Answer readFile(ComingData comingData) throws IOException {
+        answer.setId(comingData.getId());
+        System.out.println(file.getName());
+        System.out.println("Is file for reading exist?: " + file.exists());
+//java.io.FileNotFoundException
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String st;
+        StringBuilder s = new StringBuilder();
+        while ((st = br.readLine()) != null) {
+            s.append(st.replaceAll("[\u0000-\u001f &\ufffd]", ""));
+            System.out.println(st);
+            String r = s.toString();
+            r = StringUtils.substringBetween(r, "Start", "UC");
+            answer.setStatus("checked");
+            answer.setTextAnswer(r);
+        }
+        br.close();
+
         return answer;
     }
     public void deleteFile(){

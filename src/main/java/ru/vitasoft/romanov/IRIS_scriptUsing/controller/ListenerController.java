@@ -25,6 +25,11 @@ public class ListenerController {
     public void add(@RequestBody ComingData comingData) {
         listenerService.addToCurrentTable(comingData);
     }
+//    @PostMapping("/addAndStart")
+//    public void addAndStart(@RequestBody ComingData comingData) {
+//        listenerService.addToCurrentTable(comingData);
+//        listenerService.startScript();
+//    }
 
     @GetMapping("/del")
     public void del() {
@@ -41,6 +46,16 @@ public class ListenerController {
         listenerService.closeScript();
     }
 
+    @PostMapping("/readLog")
+    public Answer readLogs(@RequestBody ComingData comingData) throws IOException {
+        return listenerService.readFile(comingData);
+    }
+
+    @GetMapping("/read")
+    public void read() throws IOException {
+        listenerService.read();
+    }
+
     @GetMapping("/delLog")
     public void delLogs() {
         listenerService.deleteLog();
@@ -52,8 +67,7 @@ public class ListenerController {
 
     @PostMapping("/send")
     public Answer send(@RequestBody ComingData comingData) throws IOException, InterruptedException {
-//        listenerService.deleteLog();
-//        testMedCodService.deleteAllFromCurrentTable();
+        listenerService.deleteLog();
 
 //        listenerService.deleteFile();
         listenerService.deleteAllFromCurrentTable();
@@ -64,7 +78,7 @@ public class ListenerController {
         listenerService.startScript();
         System.out.println("start script from controller");
         TimeUnit.SECONDS.sleep(1);
-        for (int i = 0; i <3 ; i++) {
+        for (int i = 0; i <5 ; i++) {
             if (!listenerService.isFileExist()){
                 TimeUnit.SECONDS.sleep(2);
             }else{
