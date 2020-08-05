@@ -8,7 +8,6 @@ import ru.vitasoft.romanov.IRIS_scriptUsing.service.ListenerService;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-//import com.listenerexe.listener.entity.Listener;
 
 @RestController
 @RequestMapping("/listener")
@@ -25,11 +24,7 @@ public class ListenerController {
     public void add(@RequestBody ComingData comingData) {
         listenerService.addToCurrentTable(comingData);
     }
-//    @PostMapping("/addAndStart")
-//    public void addAndStart(@RequestBody ComingData comingData) {
-//        listenerService.addToCurrentTable(comingData);
-//        listenerService.startScript();
-//    }
+
 
     @GetMapping("/del")
     public void del() {
@@ -51,46 +46,33 @@ public class ListenerController {
         return listenerService.readFile(comingData);
     }
 
-    @GetMapping("/read")
-    public void read() throws IOException {
-        listenerService.read();
-    }
 
     @GetMapping("/delLog")
     public void delLogs() {
         listenerService.deleteLog();
     }
+
     @GetMapping("/alive")
-    public String areYouAlive(){
-        return listenerService.areYouAlive();
+    public String areYouAlive() {
+        return "Alive!";
     }
 
     @PostMapping("/send")
     public Answer send(@RequestBody ComingData comingData) throws IOException, InterruptedException {
         listenerService.deleteLog();
-
-//        listenerService.deleteFile();
         listenerService.deleteAllFromCurrentTable();
-        System.out.println("delete DB from controller");
-//        testMedCodService.addToCurrentTable(comingData);
         listenerService.addToCurrentTable(comingData);
-        System.out.println("add to DB from controller");
         listenerService.startScript();
-        System.out.println("start script from controller");
-        TimeUnit.SECONDS.sleep(1);
-        for (int i = 0; i <5 ; i++) {
-            if (!listenerService.isFileExist()){
-                TimeUnit.SECONDS.sleep(2);
-            }else{
+        TimeUnit.SECONDS.sleep(5);
+        for (int i = 0; i < 5; i++) {
+            if (!listenerService.isFileExist()) {
+                TimeUnit.SECONDS.sleep(1);
+            } else {
                 break;
             }
         }
 
-        //for create Log table
-        Answer answer;
-        answer = listenerService.readFile(comingData);
-//        answer = listenerService.doMagicPlease(comingData);
-//        listenerService.saveAllInfoAboutWorking(comingData,answer);
+        Answer answer = listenerService.readFile(comingData);
         listenerService.closeScript();
 
         return answer;

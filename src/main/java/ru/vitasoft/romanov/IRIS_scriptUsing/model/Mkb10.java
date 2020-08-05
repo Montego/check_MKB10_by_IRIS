@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Data
-//@Entity
 public class Mkb10 {
 
     @Id

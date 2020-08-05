@@ -5,7 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Getter
@@ -16,13 +19,12 @@ import javax.persistence.*;
 public class TestMedCod {
     private String certificateKey;
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "smallint")
     private Integer lineNb;
     @Column(columnDefinition = "nvarchar(max)")
-    private String textLine="";
+    private String textLine = "";
     private String codeLine;
-    private String intervalLine="";
-    private String codeOnly="";
+    private String intervalLine = "";
+    private String codeOnly = "";
     private String lineCoded;
 }
